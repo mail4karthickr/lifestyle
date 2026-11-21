@@ -1,0 +1,91 @@
+{
+  "scenario": "My trips tiles are built from the customer's confirmed hotel (Day 2) and dining (Day 3) bookings every time the landing page loads. Nothing about a trip is stored on its own. All data is fictional.",
+
+  "customer": { "customerId": "CUST-0042", "ecn": "ECN-000000042" },
+  "today": "2026-11-21",
+  "todayNote": "Add a debug override for 'today' so the demo can show a tile disappearing the day after checkout.",
+
+  "bookings": {
+    "note": "Confirmed bookings returned by the booking store. Day 2 writes hotel bookings, Day 3 writes dining reservations. 'kesselhorn' is extra seed data so the demo shows two trips.",
+    "hotelHouston": {
+      "type": "hotel", "bookingId": "ASP-30418872", "confirmation": "8842-KJ71", "status": "Confirmed",
+      "hotelName": "Hotel Solenne", "city": "Houston, TX", "address": "1200 Lamar Arcade, Houston, TX 77002",
+      "checkIn": "2026-12-30", "checkOut": "2027-01-02", "checkInTime": "15:00", "checkOutTime": "11:00",
+      "room": "Deluxe King · Flexible rate", "guests": 2, "tripId": "TRIP-7781"
+    },
+    "dinnerHouston": {
+      "type": "dining", "reservationId": "RES-270101-7Q3K", "status": "Confirmed",
+      "restaurantName": "Osteria Lume", "city": "Houston, TX", "address": "1420 Calder Row, Houston, TX 77002",
+      "date": "2027-01-01", "time": "20:00", "partySize": 4, "tripId": "TRIP-7781",
+      "accessibilityNeeds": ["Step-free route"], "specialRequests": "Celebrating a birthday", "dietaryNotes": "One guest is gluten-free",
+      "deposit": { "totalUsd": 400.00, "pointsUsed": 10000, "cardChargedUsd": 300.00, "cardLast4": "4821" },
+      "policy": "Full refund until Wed, Dec 30, 8:00 PM; after that, the deposit isn't refunded."
+    },
+    "hotelKesselhorn": {
+      "type": "hotel", "bookingId": "ASP-30577104", "confirmation": "5310-PW28", "status": "Confirmed",
+      "hotelName": "Kesselhorn Lodge", "city": "Silver Basin, CO", "address": "88 Ridgeback Road, Silver Basin, CO 81611",
+      "checkIn": "2027-02-12", "checkOut": "2027-02-16", "checkInTime": "16:00", "checkOutTime": "11:00",
+      "room": "Lodge King · Flexible rate", "guests": 2
+    }
+  },
+
+  "seededFlights": {
+    "note": "Seeded with the Houston trip before Day 2 (flight booking isn't in the POC). They appear in the itinerary but never drive tiles, titles or indicators.",
+    "items": [
+      { "flight": "Coast Air 1015", "from": "SFO", "to": "IAH", "date": "2026-12-30", "depart": "10:15", "arrive": "16:05", "confirmation": "QX7P2M", "tripId": "TRIP-7781" },
+      { "flight": "Coast Air 1022", "from": "IAH", "to": "SFO", "date": "2027-01-02", "depart": "18:40", "arrive": "20:55", "confirmation": "QX7P2M", "tripId": "TRIP-7781" }
+    ]
+  },
+
+  "rules": {
+    "group": "Put bookings in one trip when their date ranges overlap, counting check-in and checkout day (a hotel is checkIn..checkOut, a dinner is its date). Overlap chains: A~B and B~C make one trip.",
+    "title": {
+      "hotelOnly": "Your stay at {hotelName}",
+      "diningOnly": "Your dinner at {restaurantName}",
+      "twoOrMore": "Your trip in {city of the hotel, without the state}"
+    },
+    "destination": "City from booking data ({hotel city}, or the restaurant city for dinner-only)",
+    "dates": "Earliest start to latest end. Dinner-only shows the date and time.",
+    "indicators": "Stay = the trip has a hotel booking; Dining = the trip has a dining booking. Green with a check when booked, greyed out when not. No Travel or Experience indicators.",
+    "order": "Upcoming first: sort by start date ascending.",
+    "remove": "Show a tile through its end date; remove it from end date + 1 day (customer's local date).",
+    "none": "No bookings: hide the whole My trips section; no empty tile, no prompt.",
+    "image": "From our destination library by city: Houston → houston, Silver Basin → alpine; fallback beach.",
+    "refresh": "Fetch bookings and rerun grouping and tile logic on every landing page load."
+  },
+
+  "expectedTiles": {
+    "nothingBooked": [],
+    "dinnerOnly": [ { "title": "Your dinner at Osteria Lume", "destination": "Houston, TX", "dates": "Fri, Jan 1, 2027 · 8:00 PM", "stay": false, "dining": true, "image": "houston" } ],
+    "hotelOnly": [ { "title": "Your stay at Hotel Solenne", "destination": "Houston, TX", "dates": "Dec 30, 2026 – Jan 2, 2027", "stay": true, "dining": false, "image": "houston" } ],
+    "hotelAndDinner": [ { "title": "Your trip in Houston", "destination": "Houston, TX", "dates": "Dec 30, 2026 – Jan 2, 2027", "stay": true, "dining": true, "image": "houston" } ],
+    "twoTrips": [
+      { "title": "Your trip in Houston", "destination": "Houston, TX", "dates": "Dec 30, 2026 – Jan 2, 2027", "stay": true, "dining": true, "image": "houston" },
+      { "title": "Your stay at Kesselhorn Lodge", "destination": "Silver Basin, CO", "dates": "Feb 12 – 16, 2027", "stay": true, "dining": false, "image": "alpine" }
+    ],
+    "refreshExample": "Start with dinnerHouston only → 'Your dinner at Osteria Lume'. Add hotelHouston, reload → 'Your trip in Houston' with both indicators green.",
+    "removeExample": "With today = 2027-01-03 the Houston tile is gone; Kesselhorn remains."
+  },
+
+  "expectedItineraryHouston": {
+    "header": { "title": "Your trip in Houston", "dates": "Dec 30, 2026 – Jan 2, 2027 · Houston, TX", "summary": ["3 nights", "1 stay", "1 dinner", "2 flights"] },
+    "days": [
+      { "date": "2026-12-30", "label": "Wed, Dec 30", "dayOfTrip": "Day 1 of 4", "items": [
+        { "time": "10:15", "type": "flight", "title": "Flight SFO → IAH", "line": "Coast Air 1015 · arrives 4:05 PM", "confirmation": "QX7P2M" },
+        { "time": "15:00", "type": "hotelCheckIn", "title": "Check in · Hotel Solenne", "line": "Deluxe King · 3 nights · 2 guests", "confirmation": "8842-KJ71" } ] },
+      { "date": "2027-01-01", "label": "Fri, Jan 1", "dayOfTrip": "Day 3 of 4", "items": [
+        { "time": "20:00", "type": "dining", "title": "Dinner · Osteria Lume", "line": "Chef's table · party of 4", "confirmation": "RES-270101-7Q3K" } ] },
+      { "date": "2027-01-02", "label": "Sat, Jan 2", "dayOfTrip": "Day 4 of 4", "items": [
+        { "time": "11:00", "type": "hotelCheckOut", "title": "Check out · Hotel Solenne", "line": "1200 Lamar Arcade, Houston" },
+        { "time": "18:40", "type": "flight", "title": "Flight IAH → SFO", "line": "Coast Air 1022 · arrives 8:55 PM", "confirmation": "QX7P2M" } ] }
+    ],
+    "note": "Days with nothing booked are left out. Display only."
+  },
+
+  "imageKeys": {
+    "note": "Images already in the project from Day 1 (design/assets).",
+    "houston": "/_blob/8c57957fc7b75f5182bab65d1102cca0",
+    "alpine": "/_blob/2499d92a4549e55dad00e69615cfd574",
+    "resto": "/_blob/152d807d0f4f848750803f36f9bb4cd6"
+  }
+}

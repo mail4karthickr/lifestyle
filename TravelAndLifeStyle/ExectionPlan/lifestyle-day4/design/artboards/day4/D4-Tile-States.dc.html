@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My trips · tile states (spec)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700" rel="stylesheet">
+<style>
+body { margin: 0 }
+a { color: #5A469B } a:hover { color: #46348D }
+button, input { font-family: inherit }
+@keyframes rise { from { opacity: .55; transform: translateY(12px) } to { opacity: 1; transform: translateY(0) } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both }
+.d1 { animation-delay: .15s } .d2 { animation-delay: .3s } .d3 { animation-delay: .45s } .d4 { animation-delay: .6s }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1) } to { transform: translate3d(22px,-16px,0) scale(1.08) } }
+.drift { animation: drift 14s ease-in-out infinite alternate }
+.driftb { animation-duration: 18s } .driftc { animation-duration: 23s }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-18deg) } 55%, 100% { transform: translateX(320%) skewX(-18deg) } }
+.sheen { animation: sheen 6s ease-in-out infinite }
+@keyframes breathe { 0%, 100% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 0 rgba(96,72,173,.42) } 50% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 9px rgba(96,72,173,0) } }
+.breathe { box-shadow: 0 10px 24px rgba(90,70,155,.38); animation: breathe 2.8s ease-in-out infinite }
+@keyframes blink { 0%, 100% { opacity: .3 } 50% { opacity: 1 } }
+.blink { animation: blink 1.4s ease-in-out infinite }
+.blink.d1 { animation-delay: .2s } .blink.d2 { animation-delay: .4s }
+@keyframes draw { from { stroke-dashoffset: 26 } to { stroke-dashoffset: 0 } }
+.draw path { stroke-dasharray: 26; animation: draw .7s .35s ease-out both }
+@keyframes pop { from { transform: scale(.7); opacity: .5 } to { transform: scale(1); opacity: 1 } }
+.pop { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both }
+@keyframes spin { to { transform: rotate(360deg) } }
+.spin { animation: spin .9s linear infinite }
+@media (prefers-reduced-motion: reduce) { .rise, .drift, .sheen, .breathe, .blink, .pop, .spin, .draw path { animation: none } }
+
+.hs { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none }
+.hs::-webkit-scrollbar { display: none }
+.snap { scroll-snap-align: start }
+@keyframes shim { from { background-position: 150% 0 } to { background-position: -50% 0 } }
+.shim { background: linear-gradient(90deg, rgba(59,51,49,.07) 30%, rgba(59,51,49,.17) 50%, rgba(59,51,49,.07) 70%); background-size: 250% 100%; animation: shim 1.5s linear infinite }
+.tap { transition: background-color .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease }
+.tap:active { transform: scale(.97) }
+@media (prefers-reduced-motion: reduce) { .shim { animation: none } .tap { transition: none } }
+</style>
+</helmet>
+<div style="width: 2090px; height: 580px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #F4F0ED; font-family: 'Wells Fargo Sans', 'Source Sans 3', Arial, Helvetica, sans-serif; color: #141414; position: relative; overflow: hidden; -webkit-font-smoothing: antialiased">
+<div style="position: absolute; inset: 0">
+<div style="position: absolute; left: 40px; top: 40px; width: 370px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px; min-height: 92px">
+<div style="font-size: 19px; line-height: 24px; font-weight: 600; color: #141414; margin: 0">1 · Nothing booked</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #3B3331; margin: 0">The My trips section is hidden. No empty tile, no prompt.</div>
+</div>
+<div style="position: relative; border-radius: 28px; padding: 16px; background: #F4F0ED; box-shadow: 0 10px 30px rgba(59,51,49,0.10); overflow: hidden">
+<div style="position: relative; z-index: 1">
+<div style="border: 2px dashed rgba(59,51,49,0.22); border-radius: 20px; height: 120px; display: grid; place-items: center; color: #665E5C">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 16px; line-height: 22px; font-weight: 600; color: #665E5C; margin: 0; text-align: center">No My trips section</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; text-align: center">The page ends after Book now.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; left: 450px; top: 40px; width: 370px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px; min-height: 92px">
+<div style="font-size: 19px; line-height: 24px; font-weight: 600; color: #141414; margin: 0">2 · Hotel only</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #3B3331; margin: 0">“Your stay at [hotel name]”. Stay green, Dining greyed out.</div>
+</div>
+<div style="position: relative; border-radius: 28px; padding: 16px; background: #F4F0ED; box-shadow: 0 10px 30px rgba(59,51,49,0.10); overflow: hidden">
+<div style="position: relative; z-index: 1">
+<div style="display: flex; flex-direction: column; gap: 10px; flex: none">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px; height: 44px">
+<div style="font-size: 20px; line-height: 25px; font-weight: 600; color: #141414; margin: 0">My trips</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; flex-direction: column; gap: 10px; padding: 10px; border-radius: 20px; text-align: left; width: 100%; box-sizing: border-box; cursor: pointer; font-family: inherit; flex: none; text-decoration: none; color: #141414" type="button" class="tap rise" aria-label="Your stay at Hotel Solenne, Houston, TX, Dec 30, 2026 – Jan 2, 2027. Stay booked, Dining not booked. Opens the itinerary">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="width: 64px; height: 64px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/8c57957fc7b75f5182bab65d1102cca0" alt="Houston, TX">
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Your stay at Hotel Solenne</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 3px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z">
+</path>
+<circle cx="12" cy="10" r="2.4">
+</circle>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Houston, TX</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Dec 30, 2026 – Jan 2, 2027</div>
+</div>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#665E5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M9 5l7 7-7 7">
+</path>
+</svg>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; flex: none">
+<div style="height: 40px; border-radius: 12px; background: #E5FAF3; color: #026F43; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Stay: booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 15h18M6 10V8a1 1 0 0 1 1-1h4v3M3 18v2M21 18v2">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Stay</span>
+<div style="width: 18px; height: 18px; border-radius: 50%; background: #026F43; color: #FFFFFF; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+</div>
+<div style="height: 40px; border-radius: 12px; background: rgba(59,51,49,0.06); color: rgba(59,51,49,0.45); display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Dining: not booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M7 3v7a2 2 0 0 0 2 2v9M5 3v5M9 3v5">
+</path>
+<path d="M16 21v-8h-2V7c0-2.2 1-4 3-4v18">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Dining</span>
+<div style="font-size: 12px; line-height: 16px; font-weight: 600; color: rgba(59,51,49,0.50); margin: 0; white-space: nowrap">Not booked</div>
+</div>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; left: 860px; top: 40px; width: 370px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px; min-height: 92px">
+<div style="font-size: 19px; line-height: 24px; font-weight: 600; color: #141414; margin: 0">3 · Dinner only</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #3B3331; margin: 0">“Your dinner at [restaurant name]”. Dining green, Stay greyed out.</div>
+</div>
+<div style="position: relative; border-radius: 28px; padding: 16px; background: #F4F0ED; box-shadow: 0 10px 30px rgba(59,51,49,0.10); overflow: hidden">
+<div style="position: relative; z-index: 1">
+<div style="display: flex; flex-direction: column; gap: 10px; flex: none">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px; height: 44px">
+<div style="font-size: 20px; line-height: 25px; font-weight: 600; color: #141414; margin: 0">My trips</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; flex-direction: column; gap: 10px; padding: 10px; border-radius: 20px; text-align: left; width: 100%; box-sizing: border-box; cursor: pointer; font-family: inherit; flex: none; text-decoration: none; color: #141414" type="button" class="tap rise" aria-label="Your dinner at Osteria Lume, Houston, TX, Fri, Jan 1, 2027 · 8:00 PM. Stay not booked, Dining booked. Opens the itinerary">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="width: 64px; height: 64px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/8c57957fc7b75f5182bab65d1102cca0" alt="Houston, TX">
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Your dinner at Osteria Lume</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 3px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z">
+</path>
+<circle cx="12" cy="10" r="2.4">
+</circle>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Houston, TX</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Fri, Jan 1, 2027 · 8:00 PM</div>
+</div>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#665E5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M9 5l7 7-7 7">
+</path>
+</svg>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; flex: none">
+<div style="height: 40px; border-radius: 12px; background: rgba(59,51,49,0.06); color: rgba(59,51,49,0.45); display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Stay: not booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 15h18M6 10V8a1 1 0 0 1 1-1h4v3M3 18v2M21 18v2">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Stay</span>
+<div style="font-size: 12px; line-height: 16px; font-weight: 600; color: rgba(59,51,49,0.50); margin: 0; white-space: nowrap">Not booked</div>
+</div>
+<div style="height: 40px; border-radius: 12px; background: #E5FAF3; color: #026F43; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Dining: booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M7 3v7a2 2 0 0 0 2 2v9M5 3v5M9 3v5">
+</path>
+<path d="M16 21v-8h-2V7c0-2.2 1-4 3-4v18">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Dining</span>
+<div style="width: 18px; height: 18px; border-radius: 50%; background: #026F43; color: #FFFFFF; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+</div>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; left: 1270px; top: 40px; width: 370px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px; min-height: 92px">
+<div style="font-size: 19px; line-height: 24px; font-weight: 600; color: #141414; margin: 0">4 · Hotel + dinner, dates overlap</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #3B3331; margin: 0">One tile: “Your trip in [city of hotel]”. Check-in and checkout days count as overlap.</div>
+</div>
+<div style="position: relative; border-radius: 28px; padding: 16px; background: #F4F0ED; box-shadow: 0 10px 30px rgba(59,51,49,0.10); overflow: hidden">
+<div style="position: relative; z-index: 1">
+<div style="display: flex; flex-direction: column; gap: 10px; flex: none">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px; height: 44px">
+<div style="font-size: 20px; line-height: 25px; font-weight: 600; color: #141414; margin: 0">My trips</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; flex-direction: column; gap: 10px; padding: 10px; border-radius: 20px; text-align: left; width: 100%; box-sizing: border-box; cursor: pointer; font-family: inherit; flex: none; text-decoration: none; color: #141414" type="button" class="tap rise" aria-label="Your trip in Houston, Houston, TX, Dec 30, 2026 – Jan 2, 2027. Stay booked, Dining booked. Opens the itinerary">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="width: 64px; height: 64px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/8c57957fc7b75f5182bab65d1102cca0" alt="Houston, TX">
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Your trip in Houston</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 3px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z">
+</path>
+<circle cx="12" cy="10" r="2.4">
+</circle>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Houston, TX</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Dec 30, 2026 – Jan 2, 2027</div>
+</div>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#665E5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M9 5l7 7-7 7">
+</path>
+</svg>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; flex: none">
+<div style="height: 40px; border-radius: 12px; background: #E5FAF3; color: #026F43; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Stay: booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 15h18M6 10V8a1 1 0 0 1 1-1h4v3M3 18v2M21 18v2">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Stay</span>
+<div style="width: 18px; height: 18px; border-radius: 50%; background: #026F43; color: #FFFFFF; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+</div>
+<div style="height: 40px; border-radius: 12px; background: #E5FAF3; color: #026F43; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Dining: booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M7 3v7a2 2 0 0 0 2 2v9M5 3v5M9 3v5">
+</path>
+<path d="M16 21v-8h-2V7c0-2.2 1-4 3-4v18">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Dining</span>
+<div style="width: 18px; height: 18px; border-radius: 50%; background: #026F43; color: #FFFFFF; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+</div>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; left: 1680px; top: 40px; width: 370px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 4px; min-height: 92px">
+<div style="font-size: 19px; line-height: 24px; font-weight: 600; color: #141414; margin: 0">5 · Two trips</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #3B3331; margin: 0">One tile per trip, upcoming first. A dinner with no hotel gets its own tile.</div>
+</div>
+<div style="position: relative; border-radius: 28px; padding: 16px; background: #F4F0ED; box-shadow: 0 10px 30px rgba(59,51,49,0.10); overflow: hidden">
+<div style="position: relative; z-index: 1">
+<div style="display: flex; flex-direction: column; gap: 10px; flex: none">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px; height: 44px">
+<div style="font-size: 20px; line-height: 25px; font-weight: 600; color: #141414; margin: 0">My trips</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">2 upcoming</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; flex-direction: column; gap: 10px; padding: 10px; border-radius: 20px; text-align: left; width: 100%; box-sizing: border-box; cursor: pointer; font-family: inherit; flex: none; text-decoration: none; color: #141414" type="button" class="tap rise" aria-label="Your trip in Houston, Houston, TX, Dec 30, 2026 – Jan 2, 2027. Stay booked, Dining booked. Opens the itinerary">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="width: 64px; height: 64px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/8c57957fc7b75f5182bab65d1102cca0" alt="Houston, TX">
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Your trip in Houston</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 3px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z">
+</path>
+<circle cx="12" cy="10" r="2.4">
+</circle>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Houston, TX</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Dec 30, 2026 – Jan 2, 2027</div>
+</div>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#665E5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M9 5l7 7-7 7">
+</path>
+</svg>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; flex: none">
+<div style="height: 40px; border-radius: 12px; background: #E5FAF3; color: #026F43; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Stay: booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 15h18M6 10V8a1 1 0 0 1 1-1h4v3M3 18v2M21 18v2">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Stay</span>
+<div style="width: 18px; height: 18px; border-radius: 50%; background: #026F43; color: #FFFFFF; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+</div>
+<div style="height: 40px; border-radius: 12px; background: #E5FAF3; color: #026F43; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Dining: booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M7 3v7a2 2 0 0 0 2 2v9M5 3v5M9 3v5">
+</path>
+<path d="M16 21v-8h-2V7c0-2.2 1-4 3-4v18">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Dining</span>
+<div style="width: 18px; height: 18px; border-radius: 50%; background: #026F43; color: #FFFFFF; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; flex-direction: column; gap: 10px; padding: 10px; border-radius: 20px; text-align: left; width: 100%; box-sizing: border-box; cursor: pointer; font-family: inherit; flex: none; text-decoration: none; color: #141414" type="button" class="tap rise d1" aria-label="Your stay at Kesselhorn Lodge, Silver Basin, CO, Feb 12 – 16, 2027. Stay booked, Dining not booked. Opens the itinerary">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="width: 64px; height: 64px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/2499d92a4549e55dad00e69615cfd574" alt="Silver Basin, CO">
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Your stay at Kesselhorn Lodge</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 3px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z">
+</path>
+<circle cx="12" cy="10" r="2.4">
+</circle>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Silver Basin, CO</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Feb 12 – 16, 2027</div>
+</div>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#665E5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M9 5l7 7-7 7">
+</path>
+</svg>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; flex: none">
+<div style="height: 40px; border-radius: 12px; background: #E5FAF3; color: #026F43; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Stay: booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 15h18M6 10V8a1 1 0 0 1 1-1h4v3M3 18v2M21 18v2">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Stay</span>
+<div style="width: 18px; height: 18px; border-radius: 50%; background: #026F43; color: #FFFFFF; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+</div>
+<div style="height: 40px; border-radius: 12px; background: rgba(59,51,49,0.06); color: rgba(59,51,49,0.45); display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0" aria-label="Dining: not booked">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M7 3v7a2 2 0 0 0 2 2v9M5 3v5M9 3v5">
+</path>
+<path d="M16 21v-8h-2V7c0-2.2 1-4 3-4v18">
+</path>
+</svg>
+<span style="font-size: 14px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: 1 1 auto">Dining</span>
+<div style="font-size: 12px; line-height: 16px; font-weight: 600; color: rgba(59,51,49,0.50); margin: 0; white-space: nowrap">Not booked</div>
+</div>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; left: 40px; right: 40px; bottom: 36px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 16px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">Rules</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #3B3331; margin: 0">Built from confirmed hotel (Day 2) and dining (Day 3) bookings each time the landing page loads. Items whose dates overlap, including check-in and checkout day, form one trip. A tile is removed the day after its checkout (or dinner) date. Images come from our destination library.</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2090,"height":580}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

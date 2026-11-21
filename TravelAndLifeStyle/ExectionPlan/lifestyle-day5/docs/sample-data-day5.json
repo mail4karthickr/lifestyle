@@ -1,0 +1,154 @@
+{
+  "scenario": "Customer Avery sets up a travel profile from the landing banner, then asks Concierge to Inspire me. All data is fictional; brands, airlines and venues are placeholders.",
+  "customer": {
+    "customerId": "CUST-0042",
+    "ecn": "ECN-000000042",
+    "hasTravelProfile": false,
+    "optedOutOfProfile": false,
+    "record": {
+      "note": "Prefilled from the customer record. Shown read-only on the Traveler screen; not editable in the POC.",
+      "name": "Avery Morgan",
+      "address": "1458 Linden Way, San Francisco, CA 94117",
+      "dateOfBirth": "1988-03-14",
+      "email": "avery.morgan@example.com",
+      "phone": "(555) 010-0142"
+    }
+  },
+
+  "catalog": {
+    "note": "Options shown as chips. Real lists would come from Aspire / a content service; these are placeholders.",
+    "hotelBrands": [
+      { "id": "hb-solenne", "name": "Solenne Collection" },
+      { "id": "hb-meridian", "name": "Meridian Hotels" },
+      { "id": "hb-larkspur", "name": "Larkspur Houses" },
+      { "id": "hb-auden", "name": "Auden" },
+      { "id": "hb-wrenfield", "name": "Wrenfield Resorts" },
+      { "id": "hb-bayou", "name": "Bayou Inns" }
+    ],
+    "airlines": [
+      { "id": "al-coast", "name": "Coast Air" },
+      { "id": "al-northstar", "name": "Northstar Airways" },
+      { "id": "al-pacific", "name": "Pacific Crest" },
+      { "id": "al-lumen", "name": "Lumen Air" },
+      { "id": "al-summit", "name": "Summit Airlines" }
+    ],
+    "venues": [
+      { "id": "vn-opera", "name": "Grand Opera House" },
+      { "id": "vn-riverside", "name": "Riverside Arena" },
+      { "id": "vn-lakeside", "name": "Lakeside Amphitheater" },
+      { "id": "vn-bluenote", "name": "Blue Note Hall" }
+    ],
+    "restaurants": [
+      { "id": "rs-lume", "name": "Osteria Lume" },
+      { "id": "rs-verde", "name": "Sala Verde" },
+      { "id": "rs-marea", "name": "Marea Alta" },
+      { "id": "rs-ember", "name": "Ember & Oak" },
+      { "id": "rs-saffron", "name": "Saffron Table" }
+    ],
+    "cuisines": ["Italian", "Japanese", "Mexican", "Indian", "Mediterranean", "Steakhouse", "Seafood", "Thai"],
+    "dietaryNeeds": ["Vegetarian", "Vegan", "Gluten-free", "Nut allergy", "Shellfish allergy", "Dairy-free", "Halal", "Kosher"],
+    "priceRanges": ["$", "$$", "$$$", "$$$$"],
+    "priceRangeNote": "Per person, before drinks"
+  },
+
+  "preferences": {
+    "note": "One record per customer, keyed by ECN. Every field is optional. Each change is saved on its own (no Save button). An empty record means no profile.",
+    "empty": {
+      "ecn": "ECN-000000042",
+      "brands": { "hotelBrandIds": [], "airlineIds": [], "venueIds": [], "restaurantIds": [] },
+      "dining": { "cuisines": [], "dietaryNeeds": [], "priceRange": null },
+      "traveler": { "knownTravelerNumber": null, "passportNumber": null, "passportCountry": null, "passportExpiry": null, "redressNumber": null },
+      "createdAt": null,
+      "updatedAt": null
+    },
+    "afterSetup": {
+      "note": "The state shown in the designs once Avery finishes (D5-*-5-Done). Documents are stored encrypted; the app only ever shows the last digits.",
+      "ecn": "ECN-000000042",
+      "brands": {
+        "hotelBrandIds": ["hb-solenne", "hb-meridian"],
+        "airlineIds": ["al-coast"],
+        "venueIds": ["vn-opera"],
+        "restaurantIds": ["rs-lume"]
+      },
+      "dining": { "cuisines": ["Italian", "Japanese"], "dietaryNeeds": ["Gluten-free", "Nut allergy"], "priceRange": "$$$" },
+      "traveler": {
+        "knownTravelerNumber": { "last4": "4417", "stored": true },
+        "passportNumber": { "last4": "8823", "stored": true },
+        "passportCountry": "United States",
+        "passportExpiry": "2031-09",
+        "redressNumber": null
+      },
+      "createdAt": "2026-11-21T09:12:04Z",
+      "updatedAt": "2026-11-21T09:14:37Z"
+    }
+  },
+
+  "mockApi": {
+    "getPreferences": { "method": "GET", "path": "/customers/{ecn}/travel-preferences", "returns": "the record above; 404 or an empty record means no profile" },
+    "savePreference": {
+      "method": "PATCH",
+      "path": "/customers/{ecn}/travel-preferences",
+      "body_example": { "field": "brands.hotelBrandIds", "value": ["hb-solenne"] },
+      "delayMs": 700,
+      "returns": { "saved": true, "updatedAt": "2026-11-21T09:12:04Z" },
+      "failureScenario": "Return { saved: false } to show the Not saved · Retry state on the pill"
+    },
+    "optOut": { "method": "POST", "path": "/customers/{ecn}/travel-preferences/opt-out", "returns": { "optedOut": true } }
+  },
+
+  "validation": {
+    "note": "Placeholder format checks so the demo catches typos; confirm the real rules before production.",
+    "knownTravelerNumber": "8 to 10 letters or digits",
+    "passportNumber": "6 to 9 letters or digits",
+    "passportExpiry": "MM/YYYY, a month in the future",
+    "redressNumber": "up to 7 digits"
+  },
+
+  "inspireMe": {
+    "rules": {
+      "hotels": "Hotels whose brand is in hotelBrandIds; best match first. If no hotel brands are saved, show Day 1's general ideas.",
+      "flights": "Flights on airlines in airlineIds. If no airlines are saved, leave Flights for you out.",
+      "trip": "Pair the top hotel and a flight to the same city on matching dates into one suggested trip. Needs at least one hotel and one flight match; otherwise leave Trip for you out.",
+      "basedOn": "Chips listing the saved brands and airlines that drove the picks. Dining preferences are not used by Inspire me in the POC.",
+      "noProfile": "Without a profile, Inspire me keeps Day 1's general ideas and shows no Based on row."
+    },
+    "response": {
+      "basedOn": ["Solenne Collection", "Meridian Hotels", "Coast Air"],
+      "trip": {
+        "id": "IDEA-MIA-0212",
+        "title": "Miami long weekend",
+        "start": "2027-02-12",
+        "end": "2027-02-15",
+        "nights": 3,
+        "travelers": 2,
+        "estimatedTotal": 1650.39,
+        "estimateNote": "Shown as Est. $1,650 for 2: 3 nights at $289 plus 17% taxes and fees ($1,014.39), plus 2 round-trip fares at $318 ($636.00)",
+        "image": "event_miami",
+        "flight": { "flight": "Coast Air 1408", "from": "SFO", "to": "MIA", "type": "round trip" },
+        "hotel": { "hotelId": "HTL-MIA-0007", "name": "Hotel Solenne Miami Beach", "brand": "Solenne Collection" },
+        "because": ["Your airline", "Your hotel brand"]
+      },
+      "hotels": [
+        { "hotelId": "HTL-MIA-0007", "name": "Hotel Solenne Miami Beach", "brandId": "hb-solenne", "brand": "Solenne Collection", "city": "Miami Beach, FL", "pricePerNight": 289.00, "image": "hotel_tower" },
+        { "hotelId": "HTL-AUS-0003", "name": "Meridian Austin", "brandId": "hb-meridian", "brand": "Meridian Hotels", "city": "Austin, TX", "pricePerNight": 214.00, "image": "city" }
+      ],
+      "flights": [
+        { "flight": "Coast Air 1408", "airlineId": "al-coast", "from": "SFO", "to": "MIA", "date": "2027-02-12", "nonstop": true, "roundTripFare": 318.00 },
+        { "flight": "Coast Air 2210", "airlineId": "al-coast", "from": "SFO", "to": "AUS", "date": "2027-03-04", "nonstop": true, "roundTripFare": 244.00 }
+      ],
+      "followUp": {
+        "text": "Want me to build the Miami trip, or show more hotels from Solenne Collection?",
+        "chips": ["Build the Miami trip", "More hotels"]
+      },
+      "footnote": "Flight booking isn't available yet; hotels open the booking flow."
+    }
+  },
+
+  "imageKeys": {
+    "note": "Images already in the project from Day 1 (design/assets). Artboards reference them as /_blob/<id>.",
+    "beach": "/_blob/7eeffa24c0e2058388916c53cbc4a8b6",
+    "event_miami": "/_blob/df1735d2eedd80770740921328ae0f7c",
+    "hotel_tower": "/_blob/af3719ccfa23d22cd6f0de2354744bc3",
+    "city": "/_blob/98a03757a59f33a9bbaa00120efc5f8e"
+  }
+}

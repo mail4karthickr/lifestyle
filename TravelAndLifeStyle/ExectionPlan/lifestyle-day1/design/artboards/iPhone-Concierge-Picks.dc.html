@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concierge 3 · picks</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700" rel="stylesheet">
+<style>
+body { margin: 0 }
+a { color: #5A469B } a:hover { color: #46348D }
+button, input { font-family: inherit }
+@keyframes rise { from { opacity: .55; transform: translateY(12px) } to { opacity: 1; transform: translateY(0) } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both }
+.d1 { animation-delay: .15s } .d2 { animation-delay: .3s } .d3 { animation-delay: .45s } .d4 { animation-delay: .6s }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1) } to { transform: translate3d(22px,-16px,0) scale(1.08) } }
+.drift { animation: drift 14s ease-in-out infinite alternate }
+.driftb { animation-duration: 18s } .driftc { animation-duration: 23s }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-18deg) } 55%, 100% { transform: translateX(320%) skewX(-18deg) } }
+.sheen { animation: sheen 6s ease-in-out infinite }
+@keyframes breathe { 0%, 100% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 0 rgba(96,72,173,.42) } 50% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 9px rgba(96,72,173,0) } }
+.breathe { box-shadow: 0 10px 24px rgba(90,70,155,.38); animation: breathe 2.8s ease-in-out infinite }
+@keyframes blink { 0%, 100% { opacity: .3 } 50% { opacity: 1 } }
+.blink { animation: blink 1.4s ease-in-out infinite }
+.blink.d1 { animation-delay: .2s } .blink.d2 { animation-delay: .4s }
+@keyframes draw { from { stroke-dashoffset: 26 } to { stroke-dashoffset: 0 } }
+.draw path { stroke-dasharray: 26; animation: draw .7s .35s ease-out both }
+@keyframes pop { from { transform: scale(.7); opacity: .5 } to { transform: scale(1); opacity: 1 } }
+.pop { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both }
+@keyframes spin { to { transform: rotate(360deg) } }
+.spin { animation: spin .9s linear infinite }
+@media (prefers-reduced-motion: reduce) { .rise, .drift, .sheen, .breathe, .blink, .pop, .spin, .draw path { animation: none } }
+
+.hs { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none }
+.hs::-webkit-scrollbar { display: none }
+.snap { scroll-snap-align: start }
+@keyframes shim { from { background-position: 150% 0 } to { background-position: -50% 0 } }
+.shim { background: linear-gradient(90deg, rgba(59,51,49,.07) 30%, rgba(59,51,49,.17) 50%, rgba(59,51,49,.07) 70%); background-size: 250% 100%; animation: shim 1.5s linear infinite }
+.tap { transition: background-color .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease }
+.tap:active { transform: scale(.97) }
+@media (prefers-reduced-motion: reduce) { .shim { animation: none } .tap { transition: none } }
+</style>
+</helmet>
+<div style="width: 488px; height: 960px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #E9E3DD; font-family: 'Wells Fargo Sans', 'Source Sans 3', Arial, Helvetica, sans-serif; color: #141414; position: relative; overflow: hidden; -webkit-font-smoothing: antialiased">
+<div style="background: linear-gradient(145deg, #45423F 0%, #1B1A19 45%, #2B2927 100%); box-shadow: 0 34px 70px rgba(45,34,28,0.32), 0 6px 14px rgba(45,34,28,0.18), inset 0 0 0 1.5px rgba(255,255,255,0.22); box-sizing: border-box; position: relative; flex: none; width: 424px; height: 896px; border-radius: 67px; padding: 11px">
+<div style="position: relative; width: 402px; height: 874px; border-radius: 56px; overflow: hidden; background: #F4F0ED; isolation: isolate">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, #F7F3F0 0%, #F0EAE5 100%); z-index: 0">
+</div>
+<div style="position: absolute; left: -221px; top: -121px; width: 402px; height: 402px; transform: rotate(45deg); background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -241px; top: 262px; width: 402px; height: 402px; transform: rotate(45deg); background: linear-gradient(315deg, rgba(227,219,212,0.8), rgba(227,219,212,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -130px; top: -150px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(255,205,65,0.50) 0%, rgba(255,205,65,0) 68%); z-index: 0" class="drift">
+</div>
+<div style="position: absolute; left: -170px; top: 297px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(215,30,40,0.17) 0%, rgba(215,30,40,0) 68%); z-index: 0" class="drift driftb">
+</div>
+<div style="position: absolute; right: -150px; bottom: -180px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,72,173,0.26) 0%, rgba(96,72,173,0) 68%); z-index: 0" class="drift driftc">
+</div>
+<div style="position: absolute; inset: 0; overflow: hidden; z-index: 1">
+<div style="position: absolute; left: 16px; right: 16px; top: 118px; bottom: 102px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; overflow: hidden">
+<div style="display: flex; justify-content: flex-end; flex: none">
+<div style="max-width: 290px; padding: 10px 14px; border-radius: 20px 20px 6px 20px; background: #5A469B; color: #FFFFFF; font-size: 16px; line-height: 22px; box-shadow: 0 6px 16px rgba(90,70,155,0.22); box-sizing: border-box">Find a great hotel near great food in Houston</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 18px; padding: 10px 8px 10px 14px; display: flex; align-items: flex-start; gap: 10px; flex: none; box-sizing: border-box">
+<div style="width: 24px; height: 24px; border-radius: 50%; background: #026F43; color: #FFFFFF; display: grid; place-items: center; flex: none; margin-top: 2px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0">Your answers</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #141414; margin: 0">Dec 30 – Jan 2 · $200–300 a night · Lively · Italian, chef's table</div>
+</div>
+<button style="display: inline-flex; align-items: center; gap: 2px; min-height: 44px; color: #5A469B; text-decoration: none; font-family: inherit; font-size: 13px; line-height: 18px; font-weight: 600; background: none; border: none; padding: 0; cursor: pointer; white-space: nowrap" type="button">
+<span>Edit</span>
+</button>
+</div>
+<div style="display: flex; flex-direction: row; align-items: flex-end; gap: 8px; flex: none" class="rise">
+<div style="width: 28px; height: 28px; border-radius: 50%; background: #5A469B; color: #FFFFFF; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z">
+</path>
+<path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z">
+</path>
+</svg>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); max-width: 300px; padding: 10px 14px; border-radius: 20px 20px 20px 6px; font-size: 16px; line-height: 22px; color: #141414; box-sizing: border-box">Two picks that work together. Tap one to start booking.</div>
+</div>
+<button style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 20px; text-align: left; width: 100%; box-sizing: border-box; cursor: pointer; font-family: inherit; flex: none" type="button" class="tap rise d1" aria-label="Hotel Solenne. View rooms">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="width: 72px; height: 72px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/af3719ccfa23d22cd6f0de2354744bc3" alt="Hotel Solenne">
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 12px; line-height: 16px; font-weight: 600; color: #5A469B; margin: 0; letter-spacing: 0.06em">STAY</div>
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Hotel Solenne</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Downtown Houston · $250 a night · 4.7 rating</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 2px">
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #5A469B; margin: 0">View rooms</div>
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5A469B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M9 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 12px; background: rgba(90,70,155,0.08)">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5A469B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z">
+</path>
+<path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; flex: 1 1 auto; min-width: 0">A 6-minute walk to Osteria Lume, and inside your $200–300 budget.</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 20px; text-align: left; width: 100%; box-sizing: border-box; cursor: pointer; font-family: inherit; flex: none" type="button" class="tap rise d2" aria-label="Osteria Lume. Reserve a table">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="width: 72px; height: 72px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/152d807d0f4f848750803f36f9bb4cd6" alt="Osteria Lume">
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 12px; line-height: 16px; font-weight: 600; color: #5A469B; margin: 0; letter-spacing: 0.06em">DINING</div>
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Osteria Lume</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Live-fire Italian · Chef's table, Fri, Jan 1</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 2px">
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #5A469B; margin: 0">Reserve a table</div>
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#5A469B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M9 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 12px; background: rgba(90,70,155,0.08)">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5A469B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z">
+</path>
+<path d="M18.5 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; flex: 1 1 auto; min-width: 0">An Italian chef's table on New Year's Day, during your stay.</div>
+</div>
+</button>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px; flex-wrap: wrap; flex: none">
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.74); border: 1.5px solid rgba(59,51,49,0.30); color: #141414" type="button" aria-pressed="false">
+<span>Show other options</span>
+</button>
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.74); border: 1.5px solid rgba(59,51,49,0.30); color: #141414" type="button" aria-pressed="false">
+<span>Change dates</span>
+</button>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; flex: none">Nothing is booked or charged in chat.</div>
+</div>
+</div>
+<div style="position: absolute; top: 58px; left: 16px; right: 16px; height: 48px; display: flex; align-items: center; gap: 8px; z-index: 20">
+<a style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" href="iPhone-Landing.dc.html" aria-label="Back">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M15 5l-7 7 7 7">
+</path>
+</svg>
+</a>
+<div style="flex: 1 1 auto; text-align: center">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">Concierge</div>
+</div>
+<button style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" type="button" aria-label="New chat">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4.5H6.5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V12">
+</path>
+<path d="M17.6 3.6a1.8 1.8 0 0 1 2.6 2.6L12.5 14l-3.5 1 1-3.5z">
+</path>
+</svg>
+</button>
+</div>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 34px; z-index: 20">
+<div style="background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); height: 56px; border-radius: 28px; display: flex; align-items: center; gap: 8px; padding: 0 6px 0 18px; box-sizing: border-box; flex: none">
+<input style="flex: 1 1 auto; min-width: 0; height: 44px; border: none; background: transparent; font-family: inherit; font-size: 16px; color: #141414; outline-color: #6048AD" type="text" placeholder="Start chatting" aria-label="Message Concierge">
+<button style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #5A469B; background: transparent; color: #5A469B; display: grid; place-items: center; cursor: pointer; padding: 0; flex: none" type="button" aria-label="Speak">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="9" y="3" width="6" height="11" rx="3">
+</rect>
+<path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21">
+</path>
+</svg>
+</button>
+</div>
+</div>
+<div style="position: absolute; background: #0A0A0B; z-index: 30; pointer-events: none; top: 14px; left: 140px; width: 122px; height: 36px; border-radius: 20px">
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":488,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

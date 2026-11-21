@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Search · open</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700" rel="stylesheet">
+<style>
+body { margin: 0 }
+a { color: #5A469B } a:hover { color: #46348D }
+button, input { font-family: inherit }
+@keyframes rise { from { opacity: .55; transform: translateY(12px) } to { opacity: 1; transform: translateY(0) } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both }
+.d1 { animation-delay: .15s } .d2 { animation-delay: .3s } .d3 { animation-delay: .45s } .d4 { animation-delay: .6s }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1) } to { transform: translate3d(22px,-16px,0) scale(1.08) } }
+.drift { animation: drift 14s ease-in-out infinite alternate }
+.driftb { animation-duration: 18s } .driftc { animation-duration: 23s }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-18deg) } 55%, 100% { transform: translateX(320%) skewX(-18deg) } }
+.sheen { animation: sheen 6s ease-in-out infinite }
+@keyframes breathe { 0%, 100% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 0 rgba(96,72,173,.42) } 50% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 9px rgba(96,72,173,0) } }
+.breathe { box-shadow: 0 10px 24px rgba(90,70,155,.38); animation: breathe 2.8s ease-in-out infinite }
+@keyframes blink { 0%, 100% { opacity: .3 } 50% { opacity: 1 } }
+.blink { animation: blink 1.4s ease-in-out infinite }
+.blink.d1 { animation-delay: .2s } .blink.d2 { animation-delay: .4s }
+@keyframes draw { from { stroke-dashoffset: 26 } to { stroke-dashoffset: 0 } }
+.draw path { stroke-dasharray: 26; animation: draw .7s .35s ease-out both }
+@keyframes pop { from { transform: scale(.7); opacity: .5 } to { transform: scale(1); opacity: 1 } }
+.pop { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both }
+@keyframes spin { to { transform: rotate(360deg) } }
+.spin { animation: spin .9s linear infinite }
+@media (prefers-reduced-motion: reduce) { .rise, .drift, .sheen, .breathe, .blink, .pop, .spin, .draw path { animation: none } }
+
+.hs { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none }
+.hs::-webkit-scrollbar { display: none }
+.snap { scroll-snap-align: start }
+@keyframes shim { from { background-position: 150% 0 } to { background-position: -50% 0 } }
+.shim { background: linear-gradient(90deg, rgba(59,51,49,.07) 30%, rgba(59,51,49,.17) 50%, rgba(59,51,49,.07) 70%); background-size: 250% 100%; animation: shim 1.5s linear infinite }
+.tap { transition: background-color .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease }
+.tap:active { transform: scale(.97) }
+@media (prefers-reduced-motion: reduce) { .shim { animation: none } .tap { transition: none } }
+</style>
+</helmet>
+<div style="width: 1035px; height: 753px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #E9E3DD; font-family: 'Wells Fargo Sans', 'Source Sans 3', Arial, Helvetica, sans-serif; color: #141414; position: relative; overflow: hidden; -webkit-font-smoothing: antialiased">
+<div style="background: linear-gradient(145deg, #45423F 0%, #1B1A19 45%, #2B2927 100%); box-shadow: 0 34px 70px rgba(45,34,28,0.32), 0 6px 14px rgba(45,34,28,0.18), inset 0 0 0 1.5px rgba(255,255,255,0.22); box-sizing: border-box; position: relative; flex: none; width: 971px; height: 689px; border-radius: 69px; padding: 10px">
+<div style="position: relative; width: 951px; height: 669px; border-radius: 59px; overflow: hidden; background: #F4F0ED; isolation: isolate">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, #F7F3F0 0%, #F0EAE5 100%); z-index: 0">
+</div>
+<div style="position: absolute; left: -523px; top: -285px; width: 951px; height: 951px; transform: rotate(45deg); background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -571px; top: 201px; width: 951px; height: 951px; transform: rotate(45deg); background: linear-gradient(315deg, rgba(227,219,212,0.8), rgba(227,219,212,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -130px; top: -150px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(255,205,65,0.50) 0%, rgba(255,205,65,0) 68%); z-index: 0" class="drift">
+</div>
+<div style="position: absolute; left: -170px; top: 227px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(215,30,40,0.17) 0%, rgba(215,30,40,0) 68%); z-index: 0" class="drift driftb">
+</div>
+<div style="position: absolute; right: -150px; bottom: -180px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,72,173,0.26) 0%, rgba(96,72,173,0) 68%); z-index: 0" class="drift driftc">
+</div>
+<div style="position: absolute; left: 20px; top: 20px; bottom: 20px; width: 439px; display: flex; flex-direction: column; z-index: 1">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: none">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: none">
+<div style="display: flex; gap: 4px">
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0">Step 1 of 5 · Hotel</div>
+</div>
+<div style="font-size: 26px; line-height: 32px; font-weight: 400; color: #141414; margin: 0">Find a hotel</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Houston · for your trip</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 22px; padding: 4px 14px; box-sizing: border-box; flex: none" class="rise d1">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 66px">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z">
+</path>
+<circle cx="12" cy="10" r="2.4">
+</circle>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Destination</div>
+<div style="font-size: 16px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Houston, TX</div>
+</div>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#665E5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M9 5l7 7-7 7">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 66px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="4" y="5" width="16" height="15" rx="2">
+</rect>
+<path d="M8 3v4M16 3v4M4 10h16">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Dates</div>
+<div style="font-size: 16px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Wed, Dec 30 – Sat, Jan 2</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: rgba(90,70,155,0.12); color: #5A469B; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>From your trip</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 66px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<circle cx="9" cy="9" r="3">
+</circle>
+<path d="M3.5 19c.5-3 2.6-4.8 5.5-4.8s5 1.8 5.5 4.8">
+</path>
+<circle cx="17" cy="9.5" r="2.4">
+</circle>
+<path d="M16.2 14.3c2.4.2 4 1.8 4.4 4.2">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Guests</div>
+<div style="font-size: 16px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ guestsText }}</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px; flex: none">
+<button style="width: 44px; height: 44px; border-radius: 50%; border: none; background: rgba(59,51,49,0.08); color: #141414; display: grid; place-items: center; cursor: pointer; padding: 0; flex: none" type="button" aria-label="Fewer guests" onClick="{{ lessG }}" disabled="{{ lessGOff }}" class="tap">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12h14">
+</path>
+</svg>
+</button>
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; min-width: 18px; text-align: center">{{ guests }}</div>
+<button style="width: 44px; height: 44px; border-radius: 50%; border: none; background: rgba(59,51,49,0.08); color: #141414; display: grid; place-items: center; cursor: pointer; padding: 0; flex: none" type="button" aria-label="More guests" onClick="{{ moreG }}" disabled="{{ moreGOff }}" class="tap">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 5v14M5 12h14">
+</path>
+</svg>
+</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 66px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 15h18M6 10V8a1 1 0 0 1 1-1h4v3M3 18v2M21 18v2">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Rooms</div>
+<div style="font-size: 16px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ roomsText }}</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px; flex: none">
+<button style="width: 44px; height: 44px; border-radius: 50%; border: none; background: rgba(59,51,49,0.08); color: #141414; display: grid; place-items: center; cursor: pointer; padding: 0; flex: none" type="button" aria-label="Fewer rooms" onClick="{{ lessR }}" disabled="{{ lessROff }}" class="tap">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12h14">
+</path>
+</svg>
+</button>
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; min-width: 18px; text-align: center">{{ rooms }}</div>
+<button style="width: 44px; height: 44px; border-radius: 50%; border: none; background: rgba(59,51,49,0.08); color: #141414; display: grid; place-items: center; cursor: pointer; padding: 0; flex: none" type="button" aria-label="More rooms" onClick="{{ moreR }}" disabled="{{ moreROff }}" class="tap">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 5v14M5 12h14">
+</path>
+</svg>
+</button>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: flex-start; gap: 6px; flex: none">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<circle cx="12" cy="12" r="9">
+</circle>
+<path d="M12 11v6M12 7.6v.4">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Dates and travelers come from Your trip in Houston. Up to 8 guests and 4 rooms per booking.</div>
+</div>
+<a style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 48px; padding: 0 22px; border-radius: 999px; font-family: inherit; font-size: 17px; line-height: 22px; font-weight: 600; cursor: pointer; text-decoration: none; box-sizing: border-box; white-space: nowrap; flex: none; background: #D71E28; color: #FFFFFF; border: none; box-shadow: 0 8px 20px rgba(215,30,40,0.28); width: 100%" href="D2-Open-2-Results.dc.html">
+<span>Search hotels</span>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<circle cx="11" cy="11" r="6.5">
+</circle>
+<path d="M16 16l4.5 4.5">
+</path>
+</svg>
+</a>
+</div>
+</div>
+<div style="position: absolute; left: 475px; top: 20px; bottom: 20px; width: 392px; display: flex; flex-direction: column; z-index: 1">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="background: rgba(255,255,255,0.70); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 10px 30px rgba(59,51,49,0.10), 0 1px 2px rgba(59,51,49,0.06); border-radius: 20px; padding: 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; flex: none" class="rise d2">
+<div style="font-size: 20px; line-height: 25px; font-weight: 600; color: #141414; margin: 0">Your trip in Houston</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Hotels you book here join this trip</div>
+<div style="height: 10px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0; letter-spacing: 0.04em; margin-top: 4px; flex: none">WED, DEC 30</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 18px; padding: 10px 12px; display: flex; align-items: flex-start; gap: 12px; box-sizing: border-box; flex: none" class="rise">
+<div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 3c.8 0 1.4.9 1.4 2v4.2l6.6 4v2l-6.6-2v4l2 1.5V20l-3.4-1-3.4 1v-1.3l2-1.5v-4l-6.6 2v-2l6.6-4V5c0-1.1.6-2 1.4-2z">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; flex: 1 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Flight SFO → IAH</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Coast Air 1015 · 10:15 AM – 4:05 PM</div>
+</div>
+</div>
+<div style="border: 2px dashed rgba(96,72,173,0.35); border-radius: 18px; padding: 12px; display: flex; align-items: center; gap: 10px; color: #5A469B">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 15h18M6 10V8a1 1 0 0 1 1-1h4v3M3 18v2M21 18v2">
+</path>
+</svg>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #5A469B; margin: 0">Your hotel goes here</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0; letter-spacing: 0.04em; margin-top: 4px; flex: none">SAT, JAN 2</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 18px; padding: 10px 12px; display: flex; align-items: flex-start; gap: 12px; box-sizing: border-box; flex: none" class="rise">
+<div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 3c.8 0 1.4.9 1.4 2v4.2l6.6 4v2l-6.6-2v4l2 1.5V20l-3.4-1-3.4 1v-1.3l2-1.5v-4l-6.6 2v-2l6.6-4V5c0-1.1.6-2 1.4-2z">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; flex: 1 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Flight IAH → SFO</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Coast Air 1022 · 6:40 PM – 8:55 PM</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; top: 119px; right: 24px; width: 48px; display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 20">
+<button style="width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" type="button" aria-label="Back">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M15 5l-7 7 7 7">
+</path>
+</svg>
+</button>
+<button style="width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" type="button" aria-label="Close booking">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M6 6l12 12M18 6L6 18">
+</path>
+</svg>
+</button>
+</div>
+<div style="position: absolute; left: 475px; width: 1px; top: 0; bottom: 0; z-index: 29; pointer-events: none; background: linear-gradient(180deg, rgba(20,20,20,0), rgba(20,20,20,0.10) 50%, rgba(20,20,20,0))">
+</div>
+</div>
+<div style="position: absolute; left: 472px; top: 0; width: 27px; height: 5px; border-radius: 0 0 4px 4px; background: rgba(255,255,255,0.22)">
+</div>
+<div style="position: absolute; left: 472px; bottom: 0; width: 27px; height: 5px; border-radius: 4px 4px 0 0; background: rgba(255,255,255,0.22)">
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1035,"height":753}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const g = s.g == null ? 2 : s.g;
+    const r = s.r == null ? 1 : s.r;
+    const MAXG = 8, MAXR = 4;
+    return {
+      guests: g, rooms: r,
+      guestsText: g + (g === 1 ? ' adult' : ' adults'),
+      roomsText: r + (r === 1 ? ' room' : ' rooms'),
+      lessG: () => this.setState({ g: Math.max(Math.max(1, r), g - 1) }),
+      moreG: () => this.setState({ g: Math.min(MAXG, g + 1) }),
+      lessR: () => this.setState({ r: Math.max(1, r - 1) }),
+      moreR: () => this.setState({ r: Math.min(MAXR, Math.min(g, r + 1)) }),
+      lessGOff: g <= Math.max(1, r), moreGOff: g >= MAXG, lessROff: r <= 1, moreROff: r >= Math.min(MAXR, g),
+    };
+  }
+}
+</script>
+</body>
+</html>

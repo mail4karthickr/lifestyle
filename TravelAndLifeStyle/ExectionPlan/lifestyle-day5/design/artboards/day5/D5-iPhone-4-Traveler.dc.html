@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Traveler (full length)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700" rel="stylesheet">
+<style>
+body { margin: 0 }
+a { color: #5A469B } a:hover { color: #46348D }
+button, input { font-family: inherit }
+@keyframes rise { from { opacity: .55; transform: translateY(12px) } to { opacity: 1; transform: translateY(0) } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both }
+.d1 { animation-delay: .15s } .d2 { animation-delay: .3s } .d3 { animation-delay: .45s } .d4 { animation-delay: .6s }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1) } to { transform: translate3d(22px,-16px,0) scale(1.08) } }
+.drift { animation: drift 14s ease-in-out infinite alternate }
+.driftb { animation-duration: 18s } .driftc { animation-duration: 23s }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-18deg) } 55%, 100% { transform: translateX(320%) skewX(-18deg) } }
+.sheen { animation: sheen 6s ease-in-out infinite }
+@keyframes breathe { 0%, 100% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 0 rgba(96,72,173,.42) } 50% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 9px rgba(96,72,173,0) } }
+.breathe { box-shadow: 0 10px 24px rgba(90,70,155,.38); animation: breathe 2.8s ease-in-out infinite }
+@keyframes blink { 0%, 100% { opacity: .3 } 50% { opacity: 1 } }
+.blink { animation: blink 1.4s ease-in-out infinite }
+.blink.d1 { animation-delay: .2s } .blink.d2 { animation-delay: .4s }
+@keyframes draw { from { stroke-dashoffset: 26 } to { stroke-dashoffset: 0 } }
+.draw path { stroke-dasharray: 26; animation: draw .7s .35s ease-out both }
+@keyframes pop { from { transform: scale(.7); opacity: .5 } to { transform: scale(1); opacity: 1 } }
+.pop { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both }
+@keyframes spin { to { transform: rotate(360deg) } }
+.spin { animation: spin .9s linear infinite }
+@media (prefers-reduced-motion: reduce) { .rise, .drift, .sheen, .breathe, .blink, .pop, .spin, .draw path { animation: none } }
+
+.hs { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none }
+.hs::-webkit-scrollbar { display: none }
+.snap { scroll-snap-align: start }
+@keyframes shim { from { background-position: 150% 0 } to { background-position: -50% 0 } }
+.shim { background: linear-gradient(90deg, rgba(59,51,49,.07) 30%, rgba(59,51,49,.17) 50%, rgba(59,51,49,.07) 70%); background-size: 250% 100%; animation: shim 1.5s linear infinite }
+.tap { transition: background-color .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease }
+.tap:active { transform: scale(.97) }
+@media (prefers-reduced-motion: reduce) { .shim { animation: none } .tap { transition: none } }
+</style>
+</helmet>
+<div style="width: 488px; height: 1166px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #E9E3DD; font-family: 'Wells Fargo Sans', 'Source Sans 3', Arial, Helvetica, sans-serif; color: #141414; position: relative; overflow: hidden; -webkit-font-smoothing: antialiased">
+<div style="width: 402px; height: 1080px; border-radius: 56px; flex: none; box-shadow: 0 30px 60px rgba(45,34,28,0.26), 0 0 0 1px rgba(255,255,255,0.7)">
+<div style="position: relative; width: 402px; height: 1080px; border-radius: 56px; overflow: hidden; background: #F4F0ED; isolation: isolate">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, #F7F3F0 0%, #F0EAE5 100%); z-index: 0">
+</div>
+<div style="position: absolute; left: -221px; top: -121px; width: 402px; height: 402px; transform: rotate(45deg); background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -241px; top: 324px; width: 402px; height: 402px; transform: rotate(45deg); background: linear-gradient(315deg, rgba(227,219,212,0.8), rgba(227,219,212,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -130px; top: -150px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(255,205,65,0.50) 0%, rgba(255,205,65,0) 68%); z-index: 0" class="drift">
+</div>
+<div style="position: absolute; left: -170px; top: 367px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(215,30,40,0.17) 0%, rgba(215,30,40,0) 68%); z-index: 0" class="drift driftb">
+</div>
+<div style="position: absolute; right: -150px; bottom: -180px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,72,173,0.26) 0%, rgba(96,72,173,0) 68%); z-index: 0" class="drift driftc">
+</div>
+<div style="position: relative; z-index: 1">
+<div style="padding: 118px 16px 124px 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: none">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: none">
+<div style="display: flex; gap: 4px">
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0">3 of 3 · Traveler</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px">
+<div style="font-size: 26px; line-height: 32px; font-weight: 400; color: #141414; margin: 0; flex: 1 1 auto">Traveler</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 14px; background: #E5FAF3; color: #026F43; font-size: 13px; font-weight: 600; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+<span>Saved</span>
+</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Your details come from your profile. Add documents if you like.</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 20px; padding: 6px 14px; box-sizing: border-box; flex: none" class="rise">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px; min-height: 36px">
+<div style="font-size: 16px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; flex: 1 1 auto">From your profile</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Can’t be changed here</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(59,51,49,0.07); color: #3B3331; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<circle cx="12" cy="8" r="3.5">
+</circle>
+<path d="M5 20c.6-3.4 3.4-5.5 7-5.5s6.4 2.1 7 5.5">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Name</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Avery Morgan</div>
+</div>
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="5" y="10" width="14" height="10" rx="2">
+</rect>
+<path d="M8 10V7.5a4 4 0 0 1 8 0V10">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(59,51,49,0.07); color: #3B3331; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z">
+</path>
+<circle cx="12" cy="10" r="2.4">
+</circle>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Address</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">1458 Linden Way, San Francisco, CA 94117</div>
+</div>
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="5" y="10" width="14" height="10" rx="2">
+</rect>
+<path d="M8 10V7.5a4 4 0 0 1 8 0V10">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(59,51,49,0.07); color: #3B3331; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="4" y="5" width="16" height="15" rx="2">
+</rect>
+<path d="M8 3v4M16 3v4M4 10h16">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Date of birth</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Mar 14, 1988</div>
+</div>
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="5" y="10" width="14" height="10" rx="2">
+</rect>
+<path d="M8 10V7.5a4 4 0 0 1 8 0V10">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(59,51,49,0.07); color: #3B3331; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="3" y="6" width="18" height="12" rx="2">
+</rect>
+<path d="M3 8l9 6 9-6">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Email</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">avery.morgan@example.com</div>
+</div>
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="5" y="10" width="14" height="10" rx="2">
+</rect>
+<path d="M8 10V7.5a4 4 0 0 1 8 0V10">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(59,51,49,0.07); color: #3B3331; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="7" y="3" width="10" height="18" rx="2">
+</rect>
+<path d="M11 18h2">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Phone</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">(555) 010-0142</div>
+</div>
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="5" y="10" width="14" height="10" rx="2">
+</rect>
+<path d="M8 10V7.5a4 4 0 0 1 8 0V10">
+</path>
+</svg>
+</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 20px; padding: 6px 14px; box-sizing: border-box; flex: none" class="rise d1">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px; min-height: 36px">
+<div style="font-size: 16px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; flex: 1 1 auto">Travel documents</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Optional</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 0">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<label style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; flex: 1 1 auto" for="ktn">Known Traveler Number (KTN)</label>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 14px; background: #E5FAF3; color: #026F43; font-size: 13px; font-weight: 600; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+<span>Saved</span>
+</div>
+</div>
+<input style="width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid rgba(2,111,67,0.35); background: rgba(255,255,255,0.85); font-family: inherit; font-size: 16px; color: #141414; box-sizing: border-box; outline-color: #6048AD" type="text" id="ktn" value="•••• •••• 4417">
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<label style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; flex: 1 1 auto" for="pass">Passport number</label>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 14px; background: #E5FAF3; color: #026F43; font-size: 13px; font-weight: 600; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+<span>Saved</span>
+</div>
+</div>
+<input style="width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid rgba(2,111,67,0.35); background: rgba(255,255,255,0.85); font-family: inherit; font-size: 16px; color: #141414; box-sizing: border-box; outline-color: #6048AD" type="text" id="pass" value="••••• 8823">
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="flex: 1 1 0; min-width: 0">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 0">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<label style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; flex: 1 1 auto" for="ctry">Country</label>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 14px; background: #E5FAF3; color: #026F43; font-size: 13px; font-weight: 600; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+<span>Saved</span>
+</div>
+</div>
+<input style="width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid rgba(2,111,67,0.35); background: rgba(255,255,255,0.85); font-family: inherit; font-size: 16px; color: #141414; box-sizing: border-box; outline-color: #6048AD" type="text" id="ctry" value="United States">
+</div>
+</div>
+<div style="flex: 1 1 0; min-width: 0">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 0">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<label style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; flex: 1 1 auto" for="exp">Expires</label>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 14px; background: #E5FAF3; color: #026F43; font-size: 13px; font-weight: 600; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+<span>Saved</span>
+</div>
+</div>
+<input style="width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid rgba(2,111,67,0.35); background: rgba(255,255,255,0.85); font-family: inherit; font-size: 16px; color: #141414; box-sizing: border-box; outline-color: #6048AD" type="text" id="exp" value="09/2031">
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<label style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; flex: 1 1 auto" for="redress">Redress number</label>
+</div>
+<input style="width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid rgba(59,51,49,0.30); background: rgba(255,255,255,0.85); font-family: inherit; font-size: 16px; color: #141414; box-sizing: border-box; outline-color: #6048AD" type="text" id="redress" placeholder="If you have one">
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: flex-start; gap: 6px; flex: none">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="5" y="10" width="14" height="10" rx="2">
+</rect>
+<path d="M8 10V7.5a4 4 0 0 1 8 0V10">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Documents are encrypted and stored with your profile. Only the last digits are shown.</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; top: 58px; left: 16px; right: 16px; height: 48px; display: flex; align-items: center; gap: 8px; z-index: 20">
+<a style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" href="D5-iPhone-3-Dining.dc.html" aria-label="Back">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M15 5l-7 7 7 7">
+</path>
+</svg>
+</a>
+<div style="flex: 1 1 auto; text-align: center">
+</div>
+<button style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" type="button" aria-label="Close">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M6 6l12 12M18 6L6 18">
+</path>
+</svg>
+</button>
+</div>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 34px; z-index: 20">
+<div style="background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); border-radius: 28px; padding: 10px 10px 10px 18px; display: flex; align-items: center; gap: 12px; box-sizing: border-box; min-height: 68px">
+<button style="height: 48px; padding: 0 10px; background: none; border: none; font-family: inherit; font-size: 17px; font-weight: 600; color: #5A469B; cursor: pointer; flex: none" type="button">
+<span>Skip</span>
+</button>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #3B3331; margin: 0">Saves as you go</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Nothing is required</div>
+</div>
+<a style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 48px; padding: 0 22px; border-radius: 999px; font-family: inherit; font-size: 17px; line-height: 22px; font-weight: 600; cursor: pointer; text-decoration: none; box-sizing: border-box; white-space: nowrap; flex: none; background: #D71E28; color: #FFFFFF; border: none; box-shadow: 0 8px 20px rgba(215,30,40,0.28)" href="D5-iPhone-5-Done.dc.html">
+<span>Finish</span>
+</a>
+</div>
+</div>
+<div style="position: absolute; background: #0A0A0B; z-index: 30; pointer-events: none; top: 14px; left: 140px; width: 122px; height: 36px; border-radius: 20px">
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":488,"height":1166}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

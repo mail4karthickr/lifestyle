@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Review</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700" rel="stylesheet">
+<style>
+body { margin: 0 }
+a { color: #5A469B } a:hover { color: #46348D }
+button, input { font-family: inherit }
+@keyframes rise { from { opacity: .55; transform: translateY(12px) } to { opacity: 1; transform: translateY(0) } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both }
+.d1 { animation-delay: .15s } .d2 { animation-delay: .3s } .d3 { animation-delay: .45s } .d4 { animation-delay: .6s }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1) } to { transform: translate3d(22px,-16px,0) scale(1.08) } }
+.drift { animation: drift 14s ease-in-out infinite alternate }
+.driftb { animation-duration: 18s } .driftc { animation-duration: 23s }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-18deg) } 55%, 100% { transform: translateX(320%) skewX(-18deg) } }
+.sheen { animation: sheen 6s ease-in-out infinite }
+@keyframes breathe { 0%, 100% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 0 rgba(96,72,173,.42) } 50% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 9px rgba(96,72,173,0) } }
+.breathe { box-shadow: 0 10px 24px rgba(90,70,155,.38); animation: breathe 2.8s ease-in-out infinite }
+@keyframes blink { 0%, 100% { opacity: .3 } 50% { opacity: 1 } }
+.blink { animation: blink 1.4s ease-in-out infinite }
+.blink.d1 { animation-delay: .2s } .blink.d2 { animation-delay: .4s }
+@keyframes draw { from { stroke-dashoffset: 26 } to { stroke-dashoffset: 0 } }
+.draw path { stroke-dasharray: 26; animation: draw .7s .35s ease-out both }
+@keyframes pop { from { transform: scale(.7); opacity: .5 } to { transform: scale(1); opacity: 1 } }
+.pop { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both }
+@keyframes spin { to { transform: rotate(360deg) } }
+.spin { animation: spin .9s linear infinite }
+@media (prefers-reduced-motion: reduce) { .rise, .drift, .sheen, .breathe, .blink, .pop, .spin, .draw path { animation: none } }
+
+.hs { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none }
+.hs::-webkit-scrollbar { display: none }
+.snap { scroll-snap-align: start }
+@keyframes shim { from { background-position: 150% 0 } to { background-position: -50% 0 } }
+.shim { background: linear-gradient(90deg, rgba(59,51,49,.07) 30%, rgba(59,51,49,.17) 50%, rgba(59,51,49,.07) 70%); background-size: 250% 100%; animation: shim 1.5s linear infinite }
+.tap { transition: background-color .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease }
+.tap:active { transform: scale(.97) }
+@media (prefers-reduced-motion: reduce) { .shim { animation: none } .tap { transition: none } }
+</style>
+</helmet>
+<div style="width: 488px; height: 960px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #E9E3DD; font-family: 'Wells Fargo Sans', 'Source Sans 3', Arial, Helvetica, sans-serif; color: #141414; position: relative; overflow: hidden; -webkit-font-smoothing: antialiased">
+<div style="background: linear-gradient(145deg, #45423F 0%, #1B1A19 45%, #2B2927 100%); box-shadow: 0 34px 70px rgba(45,34,28,0.32), 0 6px 14px rgba(45,34,28,0.18), inset 0 0 0 1.5px rgba(255,255,255,0.22); box-sizing: border-box; position: relative; flex: none; width: 424px; height: 896px; border-radius: 67px; padding: 11px">
+<div style="position: relative; width: 402px; height: 874px; border-radius: 56px; overflow: hidden; background: #F4F0ED; isolation: isolate">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, #F7F3F0 0%, #F0EAE5 100%); z-index: 0">
+</div>
+<div style="position: absolute; left: -221px; top: -121px; width: 402px; height: 402px; transform: rotate(45deg); background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -241px; top: 262px; width: 402px; height: 402px; transform: rotate(45deg); background: linear-gradient(315deg, rgba(227,219,212,0.8), rgba(227,219,212,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -130px; top: -150px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(255,205,65,0.50) 0%, rgba(255,205,65,0) 68%); z-index: 0" class="drift">
+</div>
+<div style="position: absolute; left: -170px; top: 297px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(215,30,40,0.17) 0%, rgba(215,30,40,0) 68%); z-index: 0" class="drift driftb">
+</div>
+<div style="position: absolute; right: -150px; bottom: -180px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,72,173,0.26) 0%, rgba(96,72,173,0) 68%); z-index: 0" class="drift driftc">
+</div>
+<div style="position: absolute; inset: 0; overflow: hidden; z-index: 1">
+<div style="position: relative; z-index: 1">
+<div style="padding: 118px 16px 124px 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: none">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: none">
+<div style="display: flex; gap: 4px">
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0">Step 4 of 5 · Review</div>
+</div>
+<div style="font-size: 26px; line-height: 32px; font-weight: 400; color: #141414; margin: 0">Review and book</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 20px; padding: 6px 14px; box-sizing: border-box; flex: none">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 68px">
+<div style="width: 52px; height: 52px; border-radius: 12px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/af3719ccfa23d22cd6f0de2354744bc3" alt="Hotel Solenne">
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">Hotel Solenne</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">1200 Lamar Arcade, Houston</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10); padding: 6px 0">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="4" y="5" width="16" height="15" rx="2">
+</rect>
+<path d="M8 3v4M16 3v4M4 10h16">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Dates</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">Wed, Dec 30 – Sat, Jan 2</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0">3 nights · check-in from 3:00 PM</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10); padding: 6px 0">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 15h18M6 10V8a1 1 0 0 1 1-1h4v3M3 18v2M21 18v2">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Room</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">Deluxe King · Flexible rate</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10); padding: 6px 0">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<circle cx="9" cy="9" r="3">
+</circle>
+<path d="M3.5 19c.5-3 2.6-4.8 5.5-4.8s5 1.8 5.5 4.8">
+</path>
+<circle cx="17" cy="9.5" r="2.4">
+</circle>
+<path d="M16.2 14.3c2.4.2 4 1.8 4.4 4.2">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Guests</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">2 adults · 1 room</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10); padding: 6px 0">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Cancellation</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">Free cancellation until Mon, Dec 28, 6:00 PM</div>
+</div>
+</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 8px; box-sizing: border-box; flex: none">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #665E5C; margin: 0">3 nights × $255.00</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap">$765.00</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #665E5C; margin: 0">Taxes and fees</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap">$130.05</div>
+</div>
+<div style="height: 1px; background: rgba(20,20,20,0.10); flex: none">
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px">
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">Total</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 700; color: #141414; margin: 0; white-space: nowrap">$895.05</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0; margin-top: 4px">Paying with</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px">
+<div style="width: 24px; height: 24px; border-radius: 50%; background: #FFCD41; color: #141414; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #141414; margin: 0">10,000 points</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">$100.00</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 8px">
+<div style="width: 34px; height: 22px; border-radius: 4px; flex: none; background: linear-gradient(135deg, #2B2D42 0%, #4A3F6B 55%, #1C1B2E 100%)">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #141414; margin: 0">Card ···· 4821</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">$795.05</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: flex-start; gap: 6px; flex: none">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="5" y="10" width="14" height="10" rx="2">
+</rect>
+<path d="M8 10V7.5a4 4 0 0 1 8 0V10">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Nothing is charged until you confirm. Booking can’t be changed in the app after it’s confirmed.</div>
+</div>
+</div>
+</div>
+<sc-if value="{{ busy }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="position: absolute; inset: 0; background: rgba(244,240,237,0.55); z-index: 15">
+</div>
+</sc-if>
+</div>
+<div style="position: absolute; top: 58px; left: 16px; right: 16px; height: 48px; display: flex; align-items: center; gap: 8px; z-index: 20">
+<a style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" href="D2-iPhone-5-Checkout.dc.html" aria-label="Back">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M15 5l-7 7 7 7">
+</path>
+</svg>
+</a>
+<div style="flex: 1 1 auto; text-align: center">
+</div>
+<button style="width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" type="button" aria-label="Close booking">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M6 6l12 12M18 6L6 18">
+</path>
+</svg>
+</button>
+</div>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 34px; z-index: 20">
+<sc-if value="{{ isReview }}" hint-placeholder-val="{{ true }}" style="display: contents">
+<div style="background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); border-radius: 28px; padding: 10px 10px 10px 18px; display: flex; align-items: center; gap: 12px; box-sizing: border-box; min-height: 68px">
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">$795.05 + 10,000 pts</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Charged when you confirm</div>
+</div>
+<button style="display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 20px; border-radius: 999px; border: none; background: #D71E28; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 600; cursor: pointer; box-shadow: 0 8px 20px rgba(215,30,40,0.28); white-space: nowrap; flex: none" type="button" onClick="{{ confirm }}" class="tap">
+<span>Confirm and book</span>
+</button>
+</div>
+</sc-if>
+<sc-if value="{{ isBooking }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 8px 24px rgba(20,20,20,0.18); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); border-radius: 24px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; box-sizing: border-box">
+<div style="display: flex; flex-direction: column; gap: 0px; padding-bottom: 4px">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">Booking your stay</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">This takes a few seconds. Please keep this screen open.</div>
+</div>
+<sc-if value="{{ s1Done }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; background: #026F43; color: #fff; display: grid; place-items: center; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #141414; margin: 0">Price and room confirmed</div>
+</div>
+</sc-if>
+<sc-if value="{{ s1Act }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; border: 3px solid rgba(96,72,173,0.25); border-top-color: #6048AD; box-sizing: border-box; flex: none" class="spin">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">Price and room confirmed</div>
+</div>
+</sc-if>
+<sc-if value="{{ s1Wait }}" hint-placeholder-val="{{ true }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(59,51,49,0.25); box-sizing: border-box; flex: none">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #665E5C; margin: 0">Price and room confirmed</div>
+</div>
+</sc-if>
+<sc-if value="{{ s2Done }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; background: #026F43; color: #fff; display: grid; place-items: center; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #141414; margin: 0">10,000 points applied</div>
+</div>
+</sc-if>
+<sc-if value="{{ s2Act }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; border: 3px solid rgba(96,72,173,0.25); border-top-color: #6048AD; box-sizing: border-box; flex: none" class="spin">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">10,000 points applied</div>
+</div>
+</sc-if>
+<sc-if value="{{ s2Wait }}" hint-placeholder-val="{{ true }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(59,51,49,0.25); box-sizing: border-box; flex: none">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #665E5C; margin: 0">10,000 points applied</div>
+</div>
+</sc-if>
+<sc-if value="{{ s3Done }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; background: #026F43; color: #fff; display: grid; place-items: center; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #141414; margin: 0">Confirming with Hotel Solenne</div>
+</div>
+</sc-if>
+<sc-if value="{{ s3Act }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; border: 3px solid rgba(96,72,173,0.25); border-top-color: #6048AD; box-sizing: border-box; flex: none" class="spin">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">Confirming with Hotel Solenne</div>
+</div>
+</sc-if>
+<sc-if value="{{ s3Wait }}" hint-placeholder-val="{{ true }}" style="display: contents">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 32px">
+<div style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(59,51,49,0.25); box-sizing: border-box; flex: none">
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #665E5C; margin: 0">Confirming with Hotel Solenne</div>
+</div>
+</sc-if>
+<button style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; border-radius: 999px; border: none; background: rgba(59,51,49,0.10); color: rgba(59,51,49,0.6); font-family: inherit; font-size: 17px; font-weight: 600; width: 100%; margin-top: 6px" type="button" disabled="true" aria-disabled="true">
+<span>Booking…</span>
+</button>
+</div>
+</sc-if>
+<sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 8px 24px rgba(20,20,20,0.18); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); border-radius: 24px; padding: 14px 14px 14px 18px; display: flex; align-items: center; gap: 12px; box-sizing: border-box">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: #026F43; color: #fff; display: grid; place-items: center; flex: none" class="pop">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 12.5l4.5 4.5L19 7.5">
+</path>
+</svg>
+</div>
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; flex: 1 1 auto">You're booked</div>
+<a style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 44px; padding: 0 22px; border-radius: 999px; font-family: inherit; font-size: 17px; line-height: 22px; font-weight: 600; cursor: pointer; text-decoration: none; box-sizing: border-box; white-space: nowrap; flex: none; background: #D71E28; color: #FFFFFF; border: none; box-shadow: 0 8px 20px rgba(215,30,40,0.28); font-size: 15px" href="D2-iPhone-7-Confirmed.dc.html">
+<span>See confirmation</span>
+</a>
+</div>
+</sc-if>
+</div>
+<div style="position: absolute; background: #0A0A0B; z-index: 30; pointer-events: none; top: 14px; left: 140px; width: 122px; height: 36px; border-radius: 20px">
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"screenState":{"editor":"enum","options":["Review","Booking"],"default":"Review"},"$preview":{"width":488,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const p = this.props || {};
+    const start = (p.screenState || 'Review') === 'Booking' ? 2 : 0;
+    const step = s.step == null ? start : s.step;
+    const confirm = () => {
+      if (step > 0) { return; }
+      this.setState({ step: 1 });
+      setTimeout(() => this.setState({ step: 2 }), 900);
+      setTimeout(() => this.setState({ step: 3 }), 1800);
+      setTimeout(() => this.setState({ step: 4 }), 2700);
+    };
+    const mark = (i) => ({ done: step > i, active: step === i, wait: step < i });
+    const m1 = mark(1), m2 = mark(2), m3 = mark(3);
+    return {
+      confirm: confirm, isReview: step === 0, isBooking: step > 0 && step < 4, isDone: step >= 4, busy: step > 0,
+      s1Done: m1.done, s1Act: m1.active, s1Wait: m1.wait,
+      s2Done: m2.done, s2Act: m2.active, s2Wait: m2.wait,
+      s3Done: m3.done, s3Act: m3.active, s3Wait: m3.wait,
+    };
+  }
+}
+</script>
+</body>
+</html>

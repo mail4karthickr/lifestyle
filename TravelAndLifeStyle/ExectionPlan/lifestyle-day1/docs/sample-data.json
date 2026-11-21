@@ -1,0 +1,279 @@
+{
+  "customer": {
+    "firstName": "Avery",
+    "pointsBalance": 12450,
+    "pointValueUSD": 0.01,
+    "hasTravelProfile": false,
+    "card": {
+      "name": "Autograph Journey",
+      "valueProp": "Earn 5X points on hotels"
+    }
+  },
+  "tabs": [
+    {
+      "id": "travel",
+      "label": "Travel",
+      "inPOC": true,
+      "default": true
+    },
+    {
+      "id": "entertainment",
+      "label": "Entertainment",
+      "inPOC": false
+    },
+    {
+      "id": "dining",
+      "label": "Dining",
+      "inPOC": true
+    },
+    {
+      "id": "exclusives",
+      "label": "Exclusives",
+      "inPOC": false
+    }
+  ],
+  "travelCards": [
+    {
+      "id": "beach",
+      "image": "design/assets/beach.webp",
+      "title": "Caribbean Beach Hotel",
+      "subtitle": "Beachfront stays in the Caribbean",
+      "opens": "day2.hotelBooking(caribbean)",
+      "inPOC": true
+    },
+    {
+      "id": "alpine",
+      "image": "design/assets/alpine.webp",
+      "title": "Alpine Adventure",
+      "subtitle": "Ski-in, ski-out resort hotels",
+      "opens": "day2.hotelBooking(skiResort)",
+      "inPOC": true
+    },
+    {
+      "id": "city",
+      "image": "design/assets/city.webp",
+      "title": "Big City Nights",
+      "subtitle": "Flights to New York City",
+      "opens": null,
+      "inPOC": false
+    }
+  ],
+  "diningEvents": [
+    {
+      "id": "event-1",
+      "image": "design/assets/resto.webp",
+      "date": "Fri, Jan 1",
+      "menu": "5-course menu",
+      "name": "New Year's Day Chef's Table",
+      "cuisine": "Live-fire Italian",
+      "chef": "Chef Livia Montarro",
+      "venue": "Osteria Lume",
+      "address": "1420 Calder Row, Houston",
+      "city": "Houston",
+      "opens": "day3.reserveTable"
+    },
+    {
+      "id": "event-2",
+      "image": "design/assets/event_nyc.webp",
+      "date": "Sat, Jan 16",
+      "menu": "6-course menu",
+      "name": "Winter Truffle Dinner",
+      "cuisine": "Northern Italian",
+      "chef": "Chef Noor Castellan",
+      "venue": "Sala Verde",
+      "address": "214 Larchmont Row, New York",
+      "city": "New York",
+      "opens": null
+    },
+    {
+      "id": "event-3",
+      "image": "design/assets/event_miami.webp",
+      "date": "Sat, Feb 6",
+      "menu": "Family-style menu",
+      "name": "Supper Club by the Sea",
+      "cuisine": "Coastal Latin",
+      "chef": "Chef Rafa Ordaz",
+      "venue": "Marea Alta",
+      "address": "75 Coral Terrace, Miami",
+      "city": "Miami",
+      "opens": null
+    }
+  ],
+  "bookNowTiles": [
+    {
+      "id": "hotels",
+      "label": "Hotels",
+      "sfSymbolHint": "bed.double",
+      "opens": "day2.hotelBooking"
+    },
+    {
+      "id": "flights",
+      "label": "Flights",
+      "sfSymbolHint": "airplane",
+      "opens": null
+    },
+    {
+      "id": "cars",
+      "label": "Cars",
+      "sfSymbolHint": "car",
+      "opens": null
+    },
+    {
+      "id": "cruises",
+      "label": "Cruises",
+      "sfSymbolHint": "ferry",
+      "opens": null
+    },
+    {
+      "id": "experiences",
+      "label": "Experiences",
+      "sfSymbolHint": "star",
+      "opens": null
+    },
+    {
+      "id": "events",
+      "label": "Events",
+      "sfSymbolHint": "ticket",
+      "opens": "day3.reserveTable"
+    }
+  ],
+  "plans": {
+    "emptyForNewCustomer": true,
+    "returningCustomer": [
+      {
+        "id": "trip-houston",
+        "title": "Your trip in Houston",
+        "dates": "Dec 30, 2026 – Jan 2, 2027",
+        "image": "design/assets/houston.webp",
+        "status": {
+          "Stay": true,
+          "Travel": false,
+          "Dining": true,
+          "Experience": false
+        },
+        "opens": "day4.myTrip"
+      },
+      {
+        "id": "trip-houston",
+        "title": "Your stay at Kesselhorn Lodge",
+        "dates": "Feb 12 – 16, 2027",
+        "image": "design/assets/alpine.webp",
+        "status": {
+          "Stay": true,
+          "Travel": false,
+          "Dining": false,
+          "Experience": false
+        },
+        "opens": "day4.myTrip"
+      }
+    ]
+  },
+  "concierge": {
+    "mode": "simulated (scripted responses, no live AI in the POC)",
+    "greeting": [
+      "Hi Avery, I'm your Concierge.",
+      "What do you want to do?"
+    ],
+    "inspireMe": [
+      {
+        "image": "design/assets/beach.webp",
+        "prompt": "A beach week under $3,000"
+      },
+      {
+        "image": "design/assets/alpine.webp",
+        "prompt": "A ski weekend in January"
+      },
+      {
+        "image": "design/assets/resto.webp",
+        "prompt": "A great hotel near great food"
+      },
+      {
+        "image": "design/assets/city.webp",
+        "prompt": "New Year's in New York"
+      }
+    ],
+    "promptChips": [
+      "Find a great hotel near great food",
+      "Plan a relaxed weekend under $900",
+      "Inspire me"
+    ],
+    "disclosure": "Concierge is an AI assistant, not a real person. It suggests options; you review and book each one yourself.",
+    "script": [
+      {
+        "role": "user",
+        "text": "Find a great hotel near great food in Houston"
+      },
+      {
+        "role": "concierge",
+        "text": "Love it. A few quick questions so I can pick well."
+      },
+      {
+        "role": "concierge",
+        "followUps": {
+          "title": "What matters most? Pick any.",
+          "dates": "Dec 30 – Jan 2",
+          "budgetPerNight": {
+            "options": [
+              "Under $200",
+              "$200–300",
+              "$300+"
+            ],
+            "single": true,
+            "default": "$200–300"
+          },
+          "vibe": {
+            "options": [
+              "Lively",
+              "Quiet",
+              "Romantic"
+            ],
+            "default": [
+              "Lively"
+            ]
+          },
+          "dining": {
+            "options": [
+              "Italian",
+              "Chef's table",
+              "Seafood"
+            ],
+            "default": [
+              "Italian",
+              "Chef's table"
+            ]
+          },
+          "cta": "Show my picks"
+        }
+      },
+      {
+        "role": "concierge",
+        "text": "Two picks that work together. Tap one to start booking."
+      }
+    ],
+    "picks": [
+      {
+        "kind": "Stay",
+        "title": "Hotel Solenne",
+        "meta": "Downtown Houston · $250 a night · 4.7 rating",
+        "why": "A 6-minute walk to Osteria Lume, and inside your $200–300 budget.",
+        "cta": "View rooms",
+        "image": "design/assets/hotel_tower.webp",
+        "opens": "day2.hotelBooking(hotel-solenne)"
+      },
+      {
+        "kind": "Dining",
+        "title": "Osteria Lume",
+        "meta": "Live-fire Italian · Chef's table, Fri, Jan 1",
+        "why": "An Italian chef's table on New Year's Day, during your stay.",
+        "cta": "Reserve a table",
+        "image": "design/assets/resto.webp",
+        "opens": "day3.reserveTable(osteria-lume)"
+      }
+    ],
+    "afterPicksChips": [
+      "Show other options",
+      "Change dates"
+    ],
+    "footnote": "Nothing is booked or charged in chat."
+  }
+}

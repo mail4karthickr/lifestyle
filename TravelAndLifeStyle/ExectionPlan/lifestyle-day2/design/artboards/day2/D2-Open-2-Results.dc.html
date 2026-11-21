@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Results + hotel details · open</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700" rel="stylesheet">
+<style>
+body { margin: 0 }
+a { color: #5A469B } a:hover { color: #46348D }
+button, input { font-family: inherit }
+@keyframes rise { from { opacity: .55; transform: translateY(12px) } to { opacity: 1; transform: translateY(0) } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both }
+.d1 { animation-delay: .15s } .d2 { animation-delay: .3s } .d3 { animation-delay: .45s } .d4 { animation-delay: .6s }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1) } to { transform: translate3d(22px,-16px,0) scale(1.08) } }
+.drift { animation: drift 14s ease-in-out infinite alternate }
+.driftb { animation-duration: 18s } .driftc { animation-duration: 23s }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-18deg) } 55%, 100% { transform: translateX(320%) skewX(-18deg) } }
+.sheen { animation: sheen 6s ease-in-out infinite }
+@keyframes breathe { 0%, 100% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 0 rgba(96,72,173,.42) } 50% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 9px rgba(96,72,173,0) } }
+.breathe { box-shadow: 0 10px 24px rgba(90,70,155,.38); animation: breathe 2.8s ease-in-out infinite }
+@keyframes blink { 0%, 100% { opacity: .3 } 50% { opacity: 1 } }
+.blink { animation: blink 1.4s ease-in-out infinite }
+.blink.d1 { animation-delay: .2s } .blink.d2 { animation-delay: .4s }
+@keyframes draw { from { stroke-dashoffset: 26 } to { stroke-dashoffset: 0 } }
+.draw path { stroke-dasharray: 26; animation: draw .7s .35s ease-out both }
+@keyframes pop { from { transform: scale(.7); opacity: .5 } to { transform: scale(1); opacity: 1 } }
+.pop { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both }
+@keyframes spin { to { transform: rotate(360deg) } }
+.spin { animation: spin .9s linear infinite }
+@media (prefers-reduced-motion: reduce) { .rise, .drift, .sheen, .breathe, .blink, .pop, .spin, .draw path { animation: none } }
+
+.hs { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none }
+.hs::-webkit-scrollbar { display: none }
+.snap { scroll-snap-align: start }
+@keyframes shim { from { background-position: 150% 0 } to { background-position: -50% 0 } }
+.shim { background: linear-gradient(90deg, rgba(59,51,49,.07) 30%, rgba(59,51,49,.17) 50%, rgba(59,51,49,.07) 70%); background-size: 250% 100%; animation: shim 1.5s linear infinite }
+.tap { transition: background-color .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease }
+.tap:active { transform: scale(.97) }
+@media (prefers-reduced-motion: reduce) { .shim { animation: none } .tap { transition: none } }
+</style>
+</helmet>
+<div style="width: 1035px; height: 753px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #E9E3DD; font-family: 'Wells Fargo Sans', 'Source Sans 3', Arial, Helvetica, sans-serif; color: #141414; position: relative; overflow: hidden; -webkit-font-smoothing: antialiased">
+<div style="background: linear-gradient(145deg, #45423F 0%, #1B1A19 45%, #2B2927 100%); box-shadow: 0 34px 70px rgba(45,34,28,0.32), 0 6px 14px rgba(45,34,28,0.18), inset 0 0 0 1.5px rgba(255,255,255,0.22); box-sizing: border-box; position: relative; flex: none; width: 971px; height: 689px; border-radius: 69px; padding: 10px">
+<div style="position: relative; width: 951px; height: 669px; border-radius: 59px; overflow: hidden; background: #F4F0ED; isolation: isolate">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, #F7F3F0 0%, #F0EAE5 100%); z-index: 0">
+</div>
+<div style="position: absolute; left: -523px; top: -285px; width: 951px; height: 951px; transform: rotate(45deg); background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -571px; top: 201px; width: 951px; height: 951px; transform: rotate(45deg); background: linear-gradient(315deg, rgba(227,219,212,0.8), rgba(227,219,212,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -130px; top: -150px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(255,205,65,0.50) 0%, rgba(255,205,65,0) 68%); z-index: 0" class="drift">
+</div>
+<div style="position: absolute; left: -170px; top: 227px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(215,30,40,0.17) 0%, rgba(215,30,40,0) 68%); z-index: 0" class="drift driftb">
+</div>
+<div style="position: absolute; right: -150px; bottom: -180px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,72,173,0.26) 0%, rgba(96,72,173,0) 68%); z-index: 0" class="drift driftc">
+</div>
+<div style="position: absolute; left: 20px; top: 20px; bottom: 20px; width: 439px; display: flex; flex-direction: column; z-index: 1">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: none">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: none">
+<div style="display: flex; gap: 4px">
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0">Step 1 of 5 · Hotel</div>
+</div>
+<div style="font-size: 26px; line-height: 32px; font-weight: 400; color: #141414; margin: 0">Hotels in Houston</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 16px; padding: 8px 10px 8px 14px; display: flex; align-items: center; gap: 10px; flex: none; box-sizing: border-box; min-height: 60px">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#3B3331" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="4" y="5" width="16" height="15" rx="2">
+</rect>
+<path d="M8 3v4M16 3v4M4 10h16">
+</path>
+</svg>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Wed, Dec 30 – Sat, Jan 2</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">3 nights · 2 guests · 1 room</div>
+</div>
+<button style="display: inline-flex; align-items: center; gap: 2px; min-height: 44px; color: #5A469B; text-decoration: none; font-family: inherit; font-size: 13px; line-height: 18px; font-weight: 600; background: none; border: none; padding: 0; cursor: pointer; white-space: nowrap" type="button">
+<span>Edit</span>
+</button>
+</div>
+<div style="display: flex; gap: 8px; overflow: hidden; flex: none; margin-right: -0px">
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.80); border: 1.5px solid rgba(59,51,49,0.30); color: #141414; text-decoration: none" type="button" class="tap">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M4 7h10M18 7h2M4 17h4M12 17h8">
+</path>
+<circle cx="16" cy="7" r="2">
+</circle>
+<circle cx="10" cy="17" r="2">
+</circle>
+</svg>
+<span>Filters</span>
+</button>
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.80); border: 1.5px solid rgba(59,51,49,0.30); color: #141414; text-decoration: none" type="button" class="tap">
+<span>Brand</span>
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#3B3331" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 9l7 7 7-7">
+</path>
+</svg>
+</button>
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.80); border: 1.5px solid rgba(59,51,49,0.30); color: #141414; text-decoration: none" type="button" class="tap">
+<span>Price</span>
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#3B3331" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 9l7 7 7-7">
+</path>
+</svg>
+</button>
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.80); border: 1.5px solid rgba(59,51,49,0.30); color: #141414; text-decoration: none" type="button" class="tap">
+<span>Rating</span>
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#3B3331" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 9l7 7 7-7">
+</path>
+</svg>
+</button>
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.80); border: 1.5px solid rgba(59,51,49,0.30); color: #141414; text-decoration: none" type="button" class="tap">
+<span>Amenities</span>
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#3B3331" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 9l7 7 7-7">
+</path>
+</svg>
+</button>
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.80); border: 1.5px solid rgba(59,51,49,0.30); color: #141414; text-decoration: none" type="button" class="tap">
+<span>Distance</span>
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#3B3331" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 9l7 7 7-7">
+</path>
+</svg>
+</button>
+<button style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px 0 14px; border-radius: 999px; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; flex: none; background: rgba(255,255,255,0.80); border: 1.5px solid rgba(59,51,49,0.30); color: #141414; text-decoration: none" type="button" class="tap">
+<span>Accessibility</span>
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#3B3331" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M5 9l7 7 7-7">
+</path>
+</svg>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; flex: none">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; padding: 3px; border-radius: 14px; background: rgba(59,51,49,0.09); flex: none">
+<sc-for list="{{ sorts }}" as="o" hint-placeholder-count="3" style="display: contents">
+<button style="height: 40px; border-radius: 11px; border: none; font-family: inherit; font-size: 15px; line-height: 20px; font-weight: 600; cursor: pointer; padding: 0 6px; white-space: nowrap; background: {{ o.bg }}; box-shadow: {{ o.sh }}; color: {{ o.fg }}" type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" disabled="{{ o.off }}" class="tap">
+<span>{{ o.label }}</span>
+</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">10 hotels</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">{{ sortNote }}</div>
+</div>
+</div>
+<sc-if value="{{ byRec }}" hint-placeholder-val="{{ true }}" style="display: contents">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: none">
+<a style="background: rgba(255,255,255,0.82); border: 2px solid #6048AD; box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" href="D2-Open-2-Results.dc.html" class="tap rise">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/af3719ccfa23d22cd6f0de2354744bc3" alt="Hotel Solenne">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Hotel Solenne</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Downtown · 0.3 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.7</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Exceptional</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$250</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">25,000 pts</div>
+</div>
+</a>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/172f9ab9f68cc7264c703aeb554c9724" alt="The Wrenfield">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">The Wrenfield</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Museum District · 3.1 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.6</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Excellent</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$219</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">21,900 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/32534051d60c8677b425837f10da1138" alt="Larkspur House">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Larkspur House</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Montrose · 2.4 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.8</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Exceptional</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Non-refundable rates</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$189</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">18,900 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/98a03757a59f33a9bbaa00120efc5f8e" alt="Meridian Square Hotel">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Meridian Square Hotel</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Midtown · 1.2 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.5</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Excellent</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$205</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">20,500 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/7412284a072a35395372cedbf59e1bc1" alt="Auden Tower Hotel">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Auden Tower Hotel</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Uptown · 5.8 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.4</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Very good</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$274</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">27,400 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/8c57957fc7b75f5182bab65d1102cca0" alt="Bayou Lantern Inn">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Bayou Lantern Inn</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">The Heights · 3.6 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.3</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Very good</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Non-refundable rates</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$142</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">14,200 pts</div>
+</div>
+</button>
+</div>
+</sc-if>
+<sc-if value="{{ byPrice }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: none">
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/8c57957fc7b75f5182bab65d1102cca0" alt="Bayou Lantern Inn">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Bayou Lantern Inn</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">The Heights · 3.6 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.3</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Very good</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Non-refundable rates</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$142</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">14,200 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/32534051d60c8677b425837f10da1138" alt="Larkspur House">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Larkspur House</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Montrose · 2.4 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.8</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Exceptional</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Non-refundable rates</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$189</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">18,900 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/98a03757a59f33a9bbaa00120efc5f8e" alt="Meridian Square Hotel">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Meridian Square Hotel</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Midtown · 1.2 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.5</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Excellent</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$205</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">20,500 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/172f9ab9f68cc7264c703aeb554c9724" alt="The Wrenfield">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">The Wrenfield</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Museum District · 3.1 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.6</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Excellent</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$219</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">21,900 pts</div>
+</div>
+</button>
+<a style="background: rgba(255,255,255,0.82); border: 2px solid #6048AD; box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" href="D2-Open-2-Results.dc.html" class="tap rise">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/af3719ccfa23d22cd6f0de2354744bc3" alt="Hotel Solenne">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Hotel Solenne</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Downtown · 0.3 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.7</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Exceptional</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$250</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">25,000 pts</div>
+</div>
+</a>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/7412284a072a35395372cedbf59e1bc1" alt="Auden Tower Hotel">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Auden Tower Hotel</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Uptown · 5.8 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.4</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Very good</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$274</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">27,400 pts</div>
+</div>
+</button>
+</div>
+</sc-if>
+<sc-if value="{{ byRating }}" hint-placeholder-val="{{ false }}" style="display: contents">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: none">
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/32534051d60c8677b425837f10da1138" alt="Larkspur House">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Larkspur House</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Montrose · 2.4 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.8</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Exceptional</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Non-refundable rates</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$189</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">18,900 pts</div>
+</div>
+</button>
+<a style="background: rgba(255,255,255,0.82); border: 2px solid #6048AD; box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" href="D2-Open-2-Results.dc.html" class="tap rise">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/af3719ccfa23d22cd6f0de2354744bc3" alt="Hotel Solenne">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Hotel Solenne</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Downtown · 0.3 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.7</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Exceptional</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$250</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">25,000 pts</div>
+</div>
+</a>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/172f9ab9f68cc7264c703aeb554c9724" alt="The Wrenfield">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">The Wrenfield</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Museum District · 3.1 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.6</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Excellent</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$219</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">21,900 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/98a03757a59f33a9bbaa00120efc5f8e" alt="Meridian Square Hotel">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Meridian Square Hotel</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Midtown · 1.2 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.5</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Excellent</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$205</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">20,500 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/7412284a072a35395372cedbf59e1bc1" alt="Auden Tower Hotel">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Auden Tower Hotel</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Uptown · 5.8 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.4</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Very good</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: #E5FAF3; color: #026F43; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>Free cancellation</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$274</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">27,400 pts</div>
+</div>
+</button>
+<button style="background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); display: flex; align-items: center; gap: 12px; padding: 8px 12px 8px 8px; border-radius: 20px; text-decoration: none; box-sizing: border-box; flex: none; width: 100%; cursor: pointer; font-family: inherit; text-align: left" type="button" class="tap rise" aria-pressed="false">
+<div style="width: 84px; height: 84px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/8c57957fc7b75f5182bab65d1102cca0" alt="Bayou Lantern Inn">
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; align-items: flex-start">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Bayou Lantern Inn</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">The Heights · 3.6 mi</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0">4.3</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Very good</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Non-refundable rates</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">$142</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">per night</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">14,200 pts</div>
+</div>
+</button>
+</div>
+</sc-if>
+</div>
+</div>
+<div style="position: absolute; left: 475px; top: 20px; bottom: 20px; width: 392px; display: flex; flex-direction: column; z-index: 1">
+<div style="display: flex; flex-direction: column; gap: 10px; height: 100%">
+<div style="position: relative; height: 150px; border-radius: 22px; overflow: hidden; flex: none" class="rise">
+<img style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block" src="/_blob/af3719ccfa23d22cd6f0de2354744bc3" alt="Hotel Solenne at dusk">
+<div style="position: absolute; left: 12px; bottom: 14px">
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,0.86); color: #141414; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="3" y="5" width="18" height="14" rx="2">
+</rect>
+<path d="M3 16l5-5 4 4 3-3 6 6">
+</path>
+<circle cx="15.5" cy="9.5" r="1.3">
+</circle>
+</svg>
+<span>1 / 8 photos</span>
+</div>
+</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 22px; display: flex; justify-content: center">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<div style="width: 16px; height: 6px; border-radius: 3px; background: #FFFFFF">
+</div>
+<div style="width: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.6)">
+</div>
+<div style="width: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.6)">
+</div>
+<div style="width: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.6)">
+</div>
+<div style="width: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.6)">
+</div>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: none">
+<div style="font-size: 22px; line-height: 28px; font-weight: 400; color: #141414; margin: 0">Hotel Solenne</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 4px">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="#FFCD41" stroke="#B07A00" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 4l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 16.3 7 19l1.1-5.5L4 9.7 9.6 9z">
+</path>
+</svg>
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">4.7</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Exceptional</div>
+</div>
+<div style="font-size: 15px; line-height: 20px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">· 1,284 reviews</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 5px">
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#665E5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z">
+</path>
+<circle cx="12" cy="10" r="2.4">
+</circle>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">1200 Lamar Arcade, Houston, TX 77002</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 14px; height: 58px; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#5A469B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M4 9.5a12 12 0 0 1 16 0M7 13a7.5 7.5 0 0 1 10 0M10 16.3a3 3 0 0 1 4 0M12 19.5v.1">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Free Wi-Fi</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 14px; height: 58px; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#5A469B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 17c1.5-1.2 3-1.2 4.5 0s3 1.2 4.5 0 3-1.2 4.5 0 3 1.2 4.5 0M8 13V6a2 2 0 0 1 4 0M14 13V6a2 2 0 0 1 4 0M8 10h6">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Rooftop pool</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 14px; height: 58px; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#5A469B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M3 12h2M19 12h2M8 12h8">
+</path>
+<rect x="5" y="8" width="3" height="8" rx="1">
+</rect>
+<rect x="16" y="8" width="3" height="8" rx="1">
+</rect>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Fitness center</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 14px; height: 58px; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#5A469B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="4" y="4" width="16" height="16" rx="3">
+</rect>
+<path d="M10 16V8h3a2.5 2.5 0 0 1 0 5h-3">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Valet parking</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 14px; height: 58px; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#5A469B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M7 3v7a2 2 0 0 0 2 2v9M5 3v5M9 3v5">
+</path>
+<path d="M16 21v-8h-2V7c0-2.2 1-4 3-4v18">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Restaurant</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 14px; height: 58px; display: flex; align-items: center; gap: 8px; padding: 0 10px; box-sizing: border-box; min-width: 0">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#5A469B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<circle cx="12" cy="5" r="1.6">
+</circle>
+<path d="M5 9h14M12 9v5M8.5 20l3.5-6 3.5 6">
+</path>
+</svg>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Accessible rooms</div>
+</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 18px; padding: 4px 14px; box-sizing: border-box; flex: none">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 56px">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(90,70,155,0.12); color: #5A469B; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M7 3v7a2 2 0 0 0 2 2v9M5 3v5M9 3v5">
+</path>
+<path d="M16 21v-8h-2V7c0-2.2 1-4 3-4v18">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">Osteria Lume</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Live-fire Italian · New Year's Day chef's table</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #3B3331; margin: 0; white-space: nowrap">6 min walk</div>
+</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px; min-height: 56px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(196,64,164,0.12); color: #C440A4; display: grid; place-items: center; flex: none">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M4 8a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2.2a1.8 1.8 0 0 0 0 3.6V16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2.2a1.8 1.8 0 0 0 0-3.6z">
+</path>
+<path d="M14 7v10">
+</path>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto">
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0">Theater District</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Shows and concerts</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #3B3331; margin: 0; white-space: nowrap">4 min walk</div>
+</div>
+</div>
+<div style="margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(20,20,20,0.10)">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 0px">
+<div style="display: flex; flex-direction: row; align-items: baseline; gap: 4px">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">From $250</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">a night</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">or 25,000 pts · taxes extra</div>
+</div>
+<div style="flex: 1 1 auto; min-width: 0">
+</div>
+<a style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 48px; padding: 0 22px; border-radius: 999px; font-family: inherit; font-size: 17px; line-height: 22px; font-weight: 600; cursor: pointer; text-decoration: none; box-sizing: border-box; white-space: nowrap; flex: none; background: #D71E28; color: #FFFFFF; border: none; box-shadow: 0 8px 20px rgba(215,30,40,0.28)" href="D2-Open-4-Rooms.dc.html">
+<span>Choose a room</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; top: 119px; right: 24px; width: 48px; display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 20">
+<a style="width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" href="D2-Open-1-Search.dc.html" aria-label="Back">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M15 5l-7 7 7 7">
+</path>
+</svg>
+</a>
+<button style="width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" type="button" aria-label="Close booking">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M6 6l12 12M18 6L6 18">
+</path>
+</svg>
+</button>
+</div>
+<div style="position: absolute; left: 475px; width: 1px; top: 0; bottom: 0; z-index: 29; pointer-events: none; background: linear-gradient(180deg, rgba(20,20,20,0), rgba(20,20,20,0.10) 50%, rgba(20,20,20,0))">
+</div>
+</div>
+<div style="position: absolute; left: 472px; top: 0; width: 27px; height: 5px; border-radius: 0 0 4px 4px; background: rgba(255,255,255,0.22)">
+</div>
+<div style="position: absolute; left: 472px; bottom: 0; width: 27px; height: 5px; border-radius: 4px 4px 0 0; background: rgba(255,255,255,0.22)">
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1035,"height":753}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const sort = s.sort || 'Recommended';
+    const sorts = ['Recommended', 'Price', 'Rating'].map((n) => ({
+      label: n, on: n === sort,
+      bg: n === sort ? '#FFFFFF' : 'transparent', sh: n === sort ? '0 2px 8px rgba(59,51,49,0.16)' : 'none', fg: n === sort ? '#141414' : '#3B3331',
+      pick: () => this.setState({ sort: n }),
+    }));
+    return {
+      sorts: sorts, byRec: sort === 'Recommended', byPrice: sort === 'Price', byRating: sort === 'Rating',
+      sortNote: sort === 'Recommended' ? 'Sorted by relevance' : (sort === 'Price' ? 'Lowest price first' : 'Highest rated first'),
+    };
+  }
+}
+</script>
+</body>
+</html>

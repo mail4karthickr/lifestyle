@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Room + rate · closed</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700" rel="stylesheet">
+<style>
+body { margin: 0 }
+a { color: #5A469B } a:hover { color: #46348D }
+button, input { font-family: inherit }
+@keyframes rise { from { opacity: .55; transform: translateY(12px) } to { opacity: 1; transform: translateY(0) } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both }
+.d1 { animation-delay: .15s } .d2 { animation-delay: .3s } .d3 { animation-delay: .45s } .d4 { animation-delay: .6s }
+@keyframes drift { from { transform: translate3d(0,0,0) scale(1) } to { transform: translate3d(22px,-16px,0) scale(1.08) } }
+.drift { animation: drift 14s ease-in-out infinite alternate }
+.driftb { animation-duration: 18s } .driftc { animation-duration: 23s }
+@keyframes sheen { 0% { transform: translateX(-160%) skewX(-18deg) } 55%, 100% { transform: translateX(320%) skewX(-18deg) } }
+.sheen { animation: sheen 6s ease-in-out infinite }
+@keyframes breathe { 0%, 100% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 0 rgba(96,72,173,.42) } 50% { box-shadow: 0 10px 24px rgba(90,70,155,.38), 0 0 0 9px rgba(96,72,173,0) } }
+.breathe { box-shadow: 0 10px 24px rgba(90,70,155,.38); animation: breathe 2.8s ease-in-out infinite }
+@keyframes blink { 0%, 100% { opacity: .3 } 50% { opacity: 1 } }
+.blink { animation: blink 1.4s ease-in-out infinite }
+.blink.d1 { animation-delay: .2s } .blink.d2 { animation-delay: .4s }
+@keyframes draw { from { stroke-dashoffset: 26 } to { stroke-dashoffset: 0 } }
+.draw path { stroke-dasharray: 26; animation: draw .7s .35s ease-out both }
+@keyframes pop { from { transform: scale(.7); opacity: .5 } to { transform: scale(1); opacity: 1 } }
+.pop { animation: pop .5s cubic-bezier(.2,1.4,.4,1) both }
+@keyframes spin { to { transform: rotate(360deg) } }
+.spin { animation: spin .9s linear infinite }
+@media (prefers-reduced-motion: reduce) { .rise, .drift, .sheen, .breathe, .blink, .pop, .spin, .draw path { animation: none } }
+
+.hs { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none }
+.hs::-webkit-scrollbar { display: none }
+.snap { scroll-snap-align: start }
+@keyframes shim { from { background-position: 150% 0 } to { background-position: -50% 0 } }
+.shim { background: linear-gradient(90deg, rgba(59,51,49,.07) 30%, rgba(59,51,49,.17) 50%, rgba(59,51,49,.07) 70%); background-size: 250% 100%; animation: shim 1.5s linear infinite }
+.tap { transition: background-color .25s ease, border-color .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease }
+.tap:active { transform: scale(.97) }
+@media (prefers-reduced-motion: reduce) { .shim { animation: none } .tap { transition: none } }
+</style>
+</helmet>
+<div style="width: 556px; height: 762px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #E9E3DD; font-family: 'Wells Fargo Sans', 'Source Sans 3', Arial, Helvetica, sans-serif; color: #141414; position: relative; overflow: hidden; -webkit-font-smoothing: antialiased">
+<div style="background: linear-gradient(145deg, #45423F 0%, #1B1A19 45%, #2B2927 100%); box-shadow: 0 34px 70px rgba(45,34,28,0.32), 0 6px 14px rgba(45,34,28,0.18), inset 0 0 0 1.5px rgba(255,255,255,0.22); box-sizing: border-box; position: relative; flex: none; width: 492px; height: 698px; border-radius: 16px 69px 69px 16px; padding: 10px 10px 10px 16px">
+<div style="position: relative; width: 466px; height: 678px; border-radius: 8px 59px 59px 8px; overflow: hidden; background: #F4F0ED; isolation: isolate">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, #F7F3F0 0%, #F0EAE5 100%); z-index: 0">
+</div>
+<div style="position: absolute; left: -256px; top: -140px; width: 466px; height: 466px; transform: rotate(45deg); background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -280px; top: 203px; width: 466px; height: 466px; transform: rotate(45deg); background: linear-gradient(315deg, rgba(227,219,212,0.8), rgba(227,219,212,0)); z-index: 0">
+</div>
+<div style="position: absolute; right: -130px; top: -150px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(255,205,65,0.50) 0%, rgba(255,205,65,0) 68%); z-index: 0" class="drift">
+</div>
+<div style="position: absolute; left: -170px; top: 231px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(215,30,40,0.17) 0%, rgba(215,30,40,0) 68%); z-index: 0" class="drift driftb">
+</div>
+<div style="position: absolute; right: -150px; bottom: -180px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,72,173,0.26) 0%, rgba(96,72,173,0) 68%); z-index: 0" class="drift driftc">
+</div>
+<div style="position: absolute; inset: 0; overflow: hidden; z-index: 1">
+<div>
+<div style="position: relative">
+<div style="padding: 20px 84px 120px 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 8px; flex: none">
+<div style="display: flex; flex-direction: column; gap: 6px; flex: none">
+<div style="display: flex; gap: 4px">
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: #6048AD">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+<div style="height: 4px; border-radius: 2px; flex: 1 1 0; background: rgba(59,51,49,0.14)">
+</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 600; color: #665E5C; margin: 0">Step 2 of 5 · Room</div>
+</div>
+<div style="font-size: 26px; line-height: 32px; font-weight: 400; color: #141414; margin: 0">Choose a room</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 16px; padding: 8px 10px 8px 14px; display: flex; align-items: center; gap: 10px; flex: none; box-sizing: border-box; min-height: 60px">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#3B3331" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<rect x="4" y="5" width="16" height="15" rx="2">
+</rect>
+<path d="M8 3v4M16 3v4M4 10h16">
+</path>
+</svg>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Wed, Dec 30 – Sat, Jan 2</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">3 nights · 2 guests · 1 room</div>
+</div>
+<div style="display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; background: rgba(90,70,155,0.12); color: #5A469B; font-size: 13px; line-height: 18px; font-weight: 600; white-space: nowrap; flex: none">
+<span>From your trip</span>
+</div>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 20px; padding: 12px 12px 0; box-sizing: border-box; flex: none" class="rise">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; padding-bottom: 10px">
+<div style="width: 76px; height: 76px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/a39a55f0bd95647bdbb76b5bcdb9b625" alt="Deluxe King">
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">Deluxe King</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0">1 king bed · Sleeps 2 · 320 sq ft</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">City view · Rain shower</div>
+</div>
+</div>
+<sc-for list="{{ rDK }}" as="r" hint-placeholder-count="2" style="display: contents">
+<button style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 72px; padding: 8px 0; background: none; border: none; border-top: 1px solid rgba(20,20,20,0.10); text-align: left; cursor: pointer; font-family: inherit; box-sizing: border-box" type="button" onClick="{{ r.pick }}" aria-pressed="{{ r.on }}" class="tap">
+<div style="width: 22px; height: 22px; border-radius: 50%; box-sizing: border-box; border: 2px solid {{ r.ring }}; display: grid; place-items: center; flex: none; background: #FFFFFF">
+<div style="width: 10px; height: 10px; border-radius: 50%; background: {{ r.dot }}">
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<span style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414">{{ r.name }}</span>
+<span style="font-size: 13px; line-height: 18px; color: {{ r.pc }}">{{ r.policy }}</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">{{ r.tax }}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<span style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414">{{ r.price }}</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">per night</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">{{ r.pts }}</span>
+</div>
+</button>
+</sc-for>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 20px; padding: 12px 12px 0; box-sizing: border-box; flex: none" class="rise d1">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; padding-bottom: 10px">
+<div style="width: 76px; height: 76px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/c01b906f871b87f7b46b198d1b243e78" alt="Two Queens">
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">Two Queens</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0">2 queen beds · Sleeps 4 · 380 sq ft</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">City view · Work desk</div>
+</div>
+</div>
+<sc-for list="{{ rTQ }}" as="r" hint-placeholder-count="1" style="display: contents">
+<button style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 72px; padding: 8px 0; background: none; border: none; border-top: 1px solid rgba(20,20,20,0.10); text-align: left; cursor: pointer; font-family: inherit; box-sizing: border-box" type="button" onClick="{{ r.pick }}" aria-pressed="{{ r.on }}" class="tap">
+<div style="width: 22px; height: 22px; border-radius: 50%; box-sizing: border-box; border: 2px solid {{ r.ring }}; display: grid; place-items: center; flex: none; background: #FFFFFF">
+<div style="width: 10px; height: 10px; border-radius: 50%; background: {{ r.dot }}">
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<span style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414">{{ r.name }}</span>
+<span style="font-size: 13px; line-height: 18px; color: {{ r.pc }}">{{ r.policy }}</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">{{ r.tax }}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<span style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414">{{ r.price }}</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">per night</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">{{ r.pts }}</span>
+</div>
+</button>
+</sc-for>
+</div>
+<div style="background: rgba(255,255,255,0.80); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 4px 14px rgba(59,51,49,0.08); border-radius: 20px; padding: 12px 12px 0; box-sizing: border-box; flex: none" class="rise d1">
+<div style="display: flex; flex-direction: row; align-items: center; gap: 12px; padding-bottom: 10px">
+<div style="width: 76px; height: 76px; border-radius: 14px; overflow: hidden; flex: none; position: relative">
+<img style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: center" src="/_blob/cddfd5dd5a85e444dd4d32d079240bf1" alt="Junior Suite">
+</div>
+<div style="display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0">Junior Suite</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #3B3331; margin: 0">1 king bed + sofa bed · Sleeps 3 · 520 sq ft</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0">Corner view · Lounge area</div>
+</div>
+</div>
+<sc-for list="{{ rJS }}" as="r" hint-placeholder-count="1" style="display: contents">
+<button style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 72px; padding: 8px 0; background: none; border: none; border-top: 1px solid rgba(20,20,20,0.10); text-align: left; cursor: pointer; font-family: inherit; box-sizing: border-box" type="button" onClick="{{ r.pick }}" aria-pressed="{{ r.on }}" class="tap">
+<div style="width: 22px; height: 22px; border-radius: 50%; box-sizing: border-box; border: 2px solid {{ r.ring }}; display: grid; place-items: center; flex: none; background: #FFFFFF">
+<div style="width: 10px; height: 10px; border-radius: 50%; background: {{ r.dot }}">
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<span style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414">{{ r.name }}</span>
+<span style="font-size: 13px; line-height: 18px; color: {{ r.pc }}">{{ r.policy }}</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">{{ r.tax }}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0px; align-items: flex-end; flex: none">
+<span style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414">{{ r.price }}</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">per night</span>
+<span style="font-size: 13px; line-height: 18px; color: #665E5C">{{ r.pts }}</span>
+</div>
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; top: 169px; right: 24px; width: 48px; display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 20">
+<a style="width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" href="D2-Closed-3-Details.dc.html" aria-label="Back">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M15 5l-7 7 7 7">
+</path>
+</svg>
+</a>
+<button style="width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer; flex: none; box-sizing: border-box; text-decoration: none; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); color: #141414" type="button" aria-label="Close booking">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block">
+<path d="M6 6l12 12M18 6L6 18">
+</path>
+</svg>
+</button>
+</div>
+<div style="position: absolute; left: 20px; right: 84px; bottom: 26px; z-index: 20">
+<div style="background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 12px 34px rgba(59,51,49,0.18), 0 1px 2px rgba(59,51,49,0.08); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); border-radius: 28px; padding: 10px 10px 10px 18px; display: flex; align-items: center; gap: 12px; box-sizing: border-box; min-height: 68px">
+<div style="display: flex; flex-direction: column; gap: 0px; flex: 1 1 auto; min-width: 0">
+<div style="font-size: 15px; line-height: 20px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ selName }}</div>
+<div style="display: flex; flex-direction: row; align-items: center; gap: 6px">
+<div style="font-size: 17px; line-height: 22px; font-weight: 600; color: #141414; margin: 0; white-space: nowrap">{{ selTotal }}</div>
+</div>
+<div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #665E5C; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ selNote }}</div>
+</div>
+<a style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 48px; padding: 0 22px; border-radius: 999px; font-family: inherit; font-size: 17px; line-height: 22px; font-weight: 600; cursor: pointer; text-decoration: none; box-sizing: border-box; white-space: nowrap; flex: none; background: #D71E28; color: #FFFFFF; border: none; box-shadow: 0 8px 20px rgba(215,30,40,0.28)" href="D2-Closed-5-Checkout.dc.html">
+<span>Continue</span>
+</a>
+</div>
+</div>
+<div style="position: absolute; background: #0A0A0B; z-index: 30; pointer-events: none; top: 22px; right: 29px; width: 38px; height: 38px; border-radius: 50%">
+</div>
+</div>
+<div style="position: absolute; left: 3px; top: 26px; bottom: 26px; width: 5px; border-radius: 3px; background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.08))">
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":556,"height":762}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const sel = s.sel || 'dk-flex';
+    const usd = (n) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const CANCEL = 'Free cancellation until Mon, Dec 28, 6:00 PM';
+    const all = {
+      'dk-flex': ['Deluxe King', 'Flexible rate', CANCEL, '#026F43', 250],
+      'dk-save': ['Deluxe King', 'Pay now, save 10%', 'Non-refundable', '#665E5C', 225],
+      'tq-flex': ['Two Queens', 'Flexible rate', CANCEL, '#026F43', 265],
+      'js-flex': ['Junior Suite', 'Flexible rate', CANCEL, '#026F43', 340],
+    };
+    const item = (id) => {
+      const r = all[id]; const on = id === sel; const tax = Math.round(r[4] * 3 * 17) / 100;
+      return {
+        name: r[1], policy: r[2], pc: r[3], price: '$' + r[4], pts: (r[4] * 100).toLocaleString('en-US') + ' pts',
+        tax: '+ ' + usd(tax) + ' taxes and fees', on: on,
+        ring: on ? '#6048AD' : 'rgba(59,51,49,0.5)', dot: on ? '#6048AD' : 'transparent',
+        pick: () => this.setState({ sel: id }),
+      };
+    };
+    const r = all[sel]; const sub = r[4] * 3; const tax = Math.round(sub * 17) / 100; const total = Math.round((sub + tax) * 100) / 100;
+    return {
+      rDK: [item('dk-flex'), item('dk-save')], rTQ: [item('tq-flex')], rJS: [item('js-flex')],
+      selName: r[0] + ' · ' + r[1], selRoom: r[0], selRate: r[1], selPolicy: r[2], selPc: r[3],
+      selTotal: usd(total) + ' total', selNote: '3 nights · taxes and fees included',
+      nightsLine: '3 nights × ' + usd(r[4]), nightsAmt: usd(sub), taxAmt: usd(tax), totalAmt: usd(total),
+      ptsTotal: 'or ' + Math.round(total * 100).toLocaleString('en-US') + ' pts',
+    };
+  }
+}
+</script>
+</body>
+</html>

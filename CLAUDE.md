@@ -9,8 +9,6 @@ A Lifestyle section inside the retail banking iOS app, for **iPhone and iPhone D
 5. Travel profile + Inspire me
 
 ## Read first
-`TravelAndLifeStyle/ExectionPlan/` and `TravelAndLifeStyle/Requirements/` are kept out of the Git repository (see `.gitignore`); they exist only in the local working copy.
-
 Each day's handoff is in `TravelAndLifeStyle/ExectionPlan/lifestyle-dayN/`:
 
 - `docs/dayN-spec.md` — flow, layouts, components, rules, acceptance (`day1-spec.md` also has the tokens, materials and components every day reuses)
@@ -18,7 +16,7 @@ Each day's handoff is in `TravelAndLifeStyle/ExectionPlan/lifestyle-dayN/`:
 - `docs/sample-data*.json` — content and mock responses
 - `design/screens/dayN/*.png` — target screens; `design/artboards/dayN/*.dc.html` — the same screens with exact values (ignore their template tags and scripts)
 
-`TravelAndLifeStyle/Requirements/` has photos of the requirement slides (IMG_0001–0007) and screenshots of the real retail app for look and feel (IMG_0008–0013).
+`TravelAndLifeStyle/Requirements/` has photos of the requirement slides (IMG_0001–0007) and screenshots of the real retail app for look and feel (IMG_0008–0013). It is kept out of the Git repository (see `.gitignore`) and exists only in the local working copy.
 
 ## Project
 - Xcode project `TravelAndLifeStyle.xcodeproj`: the app target and a unit-test target (`TravelAndLifeStyleTests`, hosted in the app and depending on it through `test-host-target` and `dependencies` in `project.xcproj`). Deployment target iOS 27.1. The `TravelAndLifeStyle/` and `TravelAndLifeStyleTests/` folders are synchronized: files added there join their target.

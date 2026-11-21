@@ -7,12 +7,10 @@ xcuserdata/
 DerivedData/
 build/
 
-# Reference material, kept in the local working copy only: photos of the
-# requirement slides and screenshots of the real app, and the design handoff.
-# The app does not need them to build or run.
+# Kept in the local working copy only: photos of the requirement slides and
+# screenshots of the real app. The app does not need them to build or run.
 TravelAndLifeStyle/Requirements/
-TravelAndLifeStyle/ExectionPlan/
-# Two demo recordings in ExectionPlan/ are tracked all the same (added with
-# `git add -f`): the iPhone recording, and a compressed copy of the iPhone Duo
-# recording. The original Duo recording is 394 MB, over GitHub's 100 MB limit
-# for one file, so it stays local.
+
+# The original iPhone Duo recording is 394 MB, over GitHub's 100 MB limit for
+# one file. A compressed copy is tracked beside it instead.
+TravelAndLifeStyle/ExectionPlan/Screen Recording iPhone Duo *.mp4.zip
