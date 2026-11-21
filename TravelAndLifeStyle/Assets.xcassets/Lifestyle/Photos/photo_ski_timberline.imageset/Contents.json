@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "photo_ski_timberline.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "scenario": "Customer Avery reserves New Year's Day dinner for 4 at Osteria Lume in Houston, during the Houston trip. One static restaurant, hard-coded hours and tables; no restaurant API and no table is really held. All data is fictional.",
+
+  "customer": {
+    "customerId": "CUST-0042",
+    "ecn": "ECN-000000042",
+    "name": "Avery Morgan",
+    "email": "avery.morgan@example.com",
+    "phone": "(555) 010-0142",
+    "rewardsBalancePoints": 12450,
+    "balanceNote": "The designs start from Day 1's 12,450 points (same as Day 2). The mock must track the real balance: whichever of Day 2 or Day 3 runs second sees what's left. To demo Points only for a $400 deposit, seed 52,450.",
+    "pointsPerDollar": 100,
+    "savedCard": { "label": "Autograph Journey card", "last4": "4821" }
+  },
+
+  "restaurant": {
+    "restaurantId": "RST-HOU-001",
+    "name": "Osteria Lume",
+    "city": "Houston, TX",
+    "address": "1420 Calder Row, Houston, TX 77002",
+    "timeZone": "America/Chicago",
+    "chef": "Chef Livia Montarro",
+    "cuisine": "Live-fire Italian",
+    "about": "Chef Livia Montarro cooks everything over an open hearth: wood-roasted vegetables, hand-made pasta and whole fish, finished at the table.",
+    "images": { "hero": "resto", "menu": "dish" },
+    "offering": "New Year's Day Chef's Table",
+    "menu": [
+      { "course": 1, "dish": "Ember-roasted beets", "detail": "Whipped ricotta, pistachio" },
+      { "course": 2, "dish": "Grilled octopus", "detail": "Charred lemon, salsa verde" },
+      { "course": 3, "dish": "Tagliatelle", "detail": "Slow-braised short rib ragù" },
+      { "course": 4, "dish": "Wood-fired branzino", "detail": "Fennel, blood orange" },
+      { "course": 5, "dish": "Olive oil cake", "detail": "Mascarpone, wildflower honey" }
+    ],
+    "menuNote": "Vegetarian and gluten-free swaps on request.",
+    "nearby": { "name": "Hotel Solenne", "walk": "6 min walk" }
+  },
+
+  "setup": {
+    "note": "Hard-coded seed data for the POC: no inventory tool or admin screen.",
+    "openHours": { "open": "17:00", "close": "23:00" },
+    "availableDate": "2027-01-01",
+    "startTimes": ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"],
+    "tablesPerStartTime": 5,
+    "tableSizeByStartTime": { "17:00": 4, "18:00": 6, "19:00": 2, "20:00": 4, "21:00": 6, "22:00": 2 },
+    "maxPartySize": 6,
+    "fitRule": "A table fits when its size >= party size. Show only start times whose table fits; 3 guests can't take a 2-top; parties of 5-6 fit only the 6:00 and 9:00 PM 6-tops.",
+    "depositPerPersonUsd": 100,
+    "seatingLengthHours": 2,
+    "seatingNote": "Assumption used for the overlap rule: a reservation occupies 2 hours from its start time."
+  },
+
+  "seededBookingsByOtherGuests": {
+    "note": "So the demo shows a range of counts and one Sold out. Tables left = 5 - confirmed bookings at that time.",
+    "17:00": 2, "18:00": 1, "19:00": 4, "20:00": 3, "21:00": 5, "22:00": 0
+  },
+  "expectedAvailability": {
+    "party4": [
+      { "time": "17:00", "tablesLeft": 3 }, { "time": "18:00", "tablesLeft": 4 },
+      { "time": "20:00", "tablesLeft": 2 }, { "time": "21:00", "tablesLeft": 0, "label": "Sold out" }
+    ],
+    "party4Hidden": ["19:00", "22:00"],
+    "party6": [ { "time": "18:00", "tablesLeft": 4 }, { "time": "21:00", "tablesLeft": 0, "label": "Sold out" } ],
+    "afterAveryBooks20h": { "time": "20:00", "tablesLeft": 1 }
+  },
+
+  "trip": {
+    "tripId": "TRIP-7781",
+    "title": "Your trip in Houston",
+    "start": "2026-12-30",
+    "end": "2027-01-02",
+    "linkRule": "Link the reservation to the trip whose dates include the reservation date (the hotel booked on Day 2). Use the trip ID when there is one."
+  },
+
+  "reservationRequest": {
+    "restaurantId": "RST-HOU-001",
+    "date": "2027-01-01",
+    "time": "20:00",
+    "partySize": 4,
+    "guest": { "name": "Avery Morgan", "email": "avery.morgan@example.com", "phone": "(555) 010-0142" },
+    "accessibilityNeeds": ["Step-free route"],
+    "specialRequests": "Celebrating a birthday",
+    "dietaryNotes": "One guest is gluten-free",
+    "tender": { "points": 10000, "cardUsd": 300.00, "cardLast4": "4821" },
+    "termsAccepted": true,
+    "idempotencyKey": "uuid generated when Review opens; reused on retries"
+  },
+
+  "reservationResult": {
+    "reservationId": "RES-270101-7Q3K",
+    "idFormat": "RES-<yymmdd of the reservation date>-<4 characters from A-Z and 2-9, without O, I, 0 or 1>",
+    "status": "Confirmed",
+    "createdAt": "2026-11-21T10:12:44Z",
+    "restaurantNotified": false,
+    "amounts": { "depositTotalUsd": 400.00, "pointsUsed": 10000, "pointsValueUsd": 100.00, "cardChargedUsd": 300.00 },
+    "rewardsBalanceAfter": 2450,
+    "stored": ["customer", "trip", "restaurant", "slot (date + time)", "partySize", "points", "cash", "status", "accessibilityNeeds", "specialRequests", "dietaryNotes", "createdAt"]
+  },
+
+  "policy": {
+    "text": "Cancel by Wed, Dec 30, 8:00 PM (48 hours before) for a full refund. After that, the deposit isn't refunded.",
+    "refundCutoff": "2026-12-30T20:00:00-06:00",
+    "displayOnly": true
+  },
+
+  "validation": {
+    "name": "required",
+    "email": "required; basic email format",
+    "phone": "required; 10 digits (US)",
+    "overlap": "block when the customer already has a confirmed reservation on the same date whose 2-hour seating overlaps the new one",
+    "overlapDemo": { "existing": { "date": "2027-01-01", "time": "19:00", "reservationId": "RES-270101-Z8MW" }, "note": "Turn on in the mock to show D3-Closed-3b-Details-Errors" }
+  },
+
+  "mockApi": {
+    "getAvailability": { "method": "GET", "path": "/restaurants/{id}/availability?date=2027-01-01&party=4", "returns": "the fitting start times with tablesLeft" },
+    "createReservation": {
+      "method": "POST",
+      "path": "/reservations",
+      "order": ["recheck availability (tables aren't held)", "check overlap", "charge card (simulated)", "create reservation and lower that time's count", "deduct points", "return the result"],
+      "delaysMs": [900, 900, 900],
+      "scenarios": {
+        "success": "reservationResult above",
+        "paymentDeclined": "card fails: no reservation, no count change, no points deducted",
+        "soldOutAtConfirm": "tablesLeft hit 0 since the customer chose the time: nothing charged; send them back to times",
+        "overlap": "blocked before charging"
+      },
+      "idempotency": "a repeat request with the same idempotencyKey returns the first result and changes nothing"
+    }
+  },
+
+  "expectedItinerary": [
+    { "date": "2026-12-30", "time": "10:15", "type": "flight", "title": "Flight SFO → IAH", "detail": "Coast Air 1015 · 10:15 AM – 4:05 PM", "confirmation": "QX7P2M", "seeded": true },
+    { "date": "2026-12-30", "time": "15:00", "type": "hotelCheckIn", "title": "Check in · Hotel Solenne", "detail": "Deluxe King · 2 guests", "confirmation": "8842-KJ71" },
+    { "date": "2027-01-01", "time": "20:00", "type": "dining", "title": "Dinner · Osteria Lume", "detail": "Party of 4 · Chef's table", "confirmation": "RES-270101-7Q3K", "justAdded": true },
+    { "date": "2027-01-02", "time": "11:00", "type": "hotelCheckOut", "title": "Check out · Hotel Solenne" },
+    { "date": "2027-01-02", "time": "18:40", "type": "flight", "title": "Flight IAH → SFO", "detail": "Coast Air 1022 · 6:40 PM – 8:55 PM", "confirmation": "QX7P2M", "seeded": true }
+  ],
+
+  "imageKeys": {
+    "note": "Images already in the project from Day 1 (design/assets). Artboards reference them as /_blob/<id>.",
+    "resto": "/_blob/152d807d0f4f848750803f36f9bb4cd6",
+    "dish": "/_blob/e3aa5287e1b7342e736019b998ce6f6e"
+  }
+}

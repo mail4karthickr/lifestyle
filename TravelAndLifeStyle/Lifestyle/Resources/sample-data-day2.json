@@ -1,0 +1,427 @@
+{
+  "scenario": "Customer Avery adds a hotel to an existing trip that already has flights. All data is fictional.",
+  "customer": {
+    "customerId": "CUST-0042",
+    "name": "Avery Morgan",
+    "rewardsBalancePoints": 12450,
+    "pointsPerDollar": 100,
+    "savedCard": {
+      "label": "Autograph Journey card",
+      "last4": "4821"
+    }
+  },
+  "existingTrip": {
+    "tripId": "TRIP-7781",
+    "title": "Your trip in Houston",
+    "start": "2026-12-30",
+    "end": "2027-01-02",
+    "travelers": 2,
+    "flights": [
+      {
+        "flight": "Coast Air 1015",
+        "from": "SFO",
+        "to": "IAH",
+        "date": "2026-12-30",
+        "depart": "10:15",
+        "arrive": "16:05",
+        "confirmation": "QX7P2M"
+      },
+      {
+        "flight": "Coast Air 1022",
+        "from": "IAH",
+        "to": "SFO",
+        "date": "2027-01-02",
+        "depart": "18:40",
+        "arrive": "20:55",
+        "confirmation": "QX7P2M"
+      }
+    ],
+    "seededForDemo": true,
+    "note": "Seeded: flight booking is not in the POC, so the trip and its flights exist before Day 2 starts."
+  },
+  "search": {
+    "destination": "Houston, TX",
+    "checkIn": "2026-12-30",
+    "checkOut": "2027-01-02",
+    "nights": 3,
+    "adults": 2,
+    "rooms": 1,
+    "limits": {
+      "maxGuests": 8,
+      "maxRooms": 4,
+      "note": "Placeholders: use the limits the Aspire API returns."
+    },
+    "prefilledFromTrip": true
+  },
+  "results": {
+    "count": 10,
+    "sortedBy": "relevance",
+    "hotels": [
+      {
+        "hotelId": "HTL-1001",
+        "name": "Hotel Solenne",
+        "neighborhood": "Downtown",
+        "distanceMiFromCityCenter": 0.3,
+        "rating": 4.7,
+        "ratingWord": "Exceptional",
+        "cashPerNight": 250,
+        "pointsPerNight": 25000,
+        "freeCancellationAvailable": true,
+        "image": "design/assets/hotel_tower.webp"
+      },
+      {
+        "hotelId": "HTL-1002",
+        "name": "The Wrenfield",
+        "neighborhood": "Museum District",
+        "distanceMiFromCityCenter": 3.1,
+        "rating": 4.6,
+        "ratingWord": "Excellent",
+        "cashPerNight": 219,
+        "pointsPerNight": 21900,
+        "freeCancellationAvailable": true,
+        "image": "design/assets/hotel_pool.webp"
+      },
+      {
+        "hotelId": "HTL-1003",
+        "name": "Larkspur House",
+        "neighborhood": "Montrose",
+        "distanceMiFromCityCenter": 2.4,
+        "rating": 4.8,
+        "ratingWord": "Exceptional",
+        "cashPerNight": 189,
+        "pointsPerNight": 18900,
+        "freeCancellationAvailable": false,
+        "image": "design/assets/hotel_brick.webp"
+      },
+      {
+        "hotelId": "HTL-1004",
+        "name": "Meridian Square Hotel",
+        "neighborhood": "Midtown",
+        "distanceMiFromCityCenter": 1.2,
+        "rating": 4.5,
+        "ratingWord": "Excellent",
+        "cashPerNight": 205,
+        "pointsPerNight": 20500,
+        "freeCancellationAvailable": true,
+        "image": "design/assets/city.webp"
+      },
+      {
+        "hotelId": "HTL-1005",
+        "name": "Auden Tower Hotel",
+        "neighborhood": "Uptown",
+        "distanceMiFromCityCenter": 5.8,
+        "rating": 4.4,
+        "ratingWord": "Very good",
+        "cashPerNight": 274,
+        "pointsPerNight": 27400,
+        "freeCancellationAvailable": true,
+        "image": "design/assets/hotel_glass.webp"
+      },
+      {
+        "hotelId": "HTL-1006",
+        "name": "Bayou Lantern Inn",
+        "neighborhood": "The Heights",
+        "distanceMiFromCityCenter": 3.6,
+        "rating": 4.3,
+        "ratingWord": "Very good",
+        "cashPerNight": 142,
+        "pointsPerNight": 14200,
+        "freeCancellationAvailable": false,
+        "image": "design/assets/houston.webp"
+      },
+      {
+        "hotelId": "HTL-1007",
+        "name": "Cobalt Row Hotel",
+        "neighborhood": "EaDo",
+        "distanceMiFromCityCenter": 2.0,
+        "rating": 4.2,
+        "ratingWord": "Very good",
+        "cashPerNight": 168,
+        "pointsPerNight": 16800,
+        "freeCancellationAvailable": true,
+        "image": "design/assets/city.webp"
+      },
+      {
+        "hotelId": "HTL-1008",
+        "name": "The Linden Arms",
+        "neighborhood": "Rice Village",
+        "distanceMiFromCityCenter": 5.1,
+        "rating": 4.6,
+        "ratingWord": "Excellent",
+        "cashPerNight": 231,
+        "pointsPerNight": 23100,
+        "freeCancellationAvailable": true,
+        "image": "design/assets/hotel_glass.webp"
+      },
+      {
+        "hotelId": "HTL-1009",
+        "name": "Harbor Light Suites",
+        "neighborhood": "Galleria",
+        "distanceMiFromCityCenter": 7.4,
+        "rating": 4.1,
+        "ratingWord": "Good",
+        "cashPerNight": 159,
+        "pointsPerNight": 15900,
+        "freeCancellationAvailable": false,
+        "image": "design/assets/hotel_pool.webp"
+      },
+      {
+        "hotelId": "HTL-1010",
+        "name": "Pinecrest Downtown",
+        "neighborhood": "Downtown",
+        "distanceMiFromCityCenter": 0.6,
+        "rating": 4.0,
+        "ratingWord": "Good",
+        "cashPerNight": 129,
+        "pointsPerNight": 12900,
+        "freeCancellationAvailable": true,
+        "image": "design/assets/hotel_brick.webp"
+      }
+    ],
+    "filters": {
+      "brand": [
+        "Solenne Collection",
+        "Meridian",
+        "Independent"
+      ],
+      "priceRangePerNight": [
+        100,
+        400
+      ],
+      "rating": [
+        "Any",
+        "4.0+",
+        "4.5+"
+      ],
+      "amenities": [
+        "Pool",
+        "Free Wi-Fi",
+        "Parking",
+        "Fitness"
+      ],
+      "distanceFrom": [
+        "City center",
+        "Your dinner",
+        "Airport"
+      ],
+      "accessibility": [
+        "Accessible room",
+        "Roll-in shower",
+        "Hearing access"
+      ]
+    },
+    "sort": [
+      "Recommended",
+      "Price",
+      "Rating"
+    ]
+  },
+  "hotelDetails": {
+    "hotelId": "HTL-1001",
+    "name": "Hotel Solenne",
+    "address": "1200 Lamar Arcade, Houston, TX 77002",
+    "rating": 4.7,
+    "ratingWord": "Exceptional",
+    "reviews": 1284,
+    "photos": 8,
+    "amenities": [
+      "Free Wi-Fi",
+      "Rooftop pool",
+      "Fitness center",
+      "Valet parking",
+      "Restaurant",
+      "Accessible rooms"
+    ],
+    "about": "A 24-floor hotel in the middle of Downtown, steps from the Theater District, with a rooftop pool and a lobby bar.",
+    "nearby": [
+      {
+        "name": "Osteria Lume",
+        "detail": "Live-fire Italian · New Year's Day chef's table",
+        "walk": "6 min"
+      },
+      {
+        "name": "Theater District",
+        "detail": "Shows and concerts",
+        "walk": "4 min"
+      }
+    ],
+    "checkInFrom": "15:00",
+    "checkOutBy": "11:00"
+  },
+  "rooms": [
+    {
+      "roomId": "RM-DK",
+      "name": "Deluxe King",
+      "beds": "1 king bed",
+      "sleeps": 2,
+      "sizeSqFt": 320,
+      "features": [
+        "City view",
+        "Rain shower"
+      ],
+      "image": "design/assets/room_king.webp",
+      "rates": [
+        {
+          "rateId": "RT-DK-FLEX",
+          "name": "Flexible rate",
+          "cashPerNight": 250,
+          "pointsPerNight": 25000,
+          "taxesAndFeesTotal": 127.5,
+          "refundable": true,
+          "cancellationPolicy": "Free cancellation until Mon, Dec 28, 2026, 6:00 PM hotel time. After that, the first night is charged."
+        },
+        {
+          "rateId": "RT-DK-SAVE",
+          "name": "Pay now, save 10%",
+          "cashPerNight": 225,
+          "pointsPerNight": 22500,
+          "taxesAndFeesTotal": 114.75,
+          "refundable": false,
+          "cancellationPolicy": "Non-refundable."
+        }
+      ]
+    },
+    {
+      "roomId": "RM-TQ",
+      "name": "Two Queens",
+      "beds": "2 queen beds",
+      "sleeps": 4,
+      "sizeSqFt": 380,
+      "features": [
+        "City view",
+        "Work desk"
+      ],
+      "image": "design/assets/room_queens.webp",
+      "rates": [
+        {
+          "rateId": "RT-TQ-FLEX",
+          "name": "Flexible rate",
+          "cashPerNight": 265,
+          "pointsPerNight": 26500,
+          "taxesAndFeesTotal": 135.15,
+          "refundable": true,
+          "cancellationPolicy": "Free cancellation until Mon, Dec 28, 2026, 6:00 PM hotel time. After that, the first night is charged."
+        }
+      ]
+    },
+    {
+      "roomId": "RM-JS",
+      "name": "Junior Suite",
+      "beds": "1 king bed + sofa bed",
+      "sleeps": 3,
+      "sizeSqFt": 520,
+      "features": [
+        "Corner view",
+        "Lounge area"
+      ],
+      "image": "design/assets/room_suite.webp",
+      "rates": [
+        {
+          "rateId": "RT-JS-FLEX",
+          "name": "Flexible rate",
+          "cashPerNight": 340,
+          "pointsPerNight": 34000,
+          "taxesAndFeesTotal": 173.4,
+          "refundable": true,
+          "cancellationPolicy": "Free cancellation until Mon, Dec 28, 2026, 6:00 PM hotel time. After that, the first night is charged."
+        }
+      ]
+    }
+  ],
+  "taxRateForMocks": 0.17,
+  "repriceScenarios": {
+    "Price changed": {
+      "rateId": "RT-DK-FLEX",
+      "oldCashPerNight": 250,
+      "newCashPerNight": 255,
+      "oldTotal": 877.5,
+      "newTotal": 895.05,
+      "changes": {
+        "price": true,
+        "room": false,
+        "cancellationTerms": false
+      },
+      "requiresAcceptance": true
+    },
+    "No change": {
+      "total": 877.5,
+      "changes": {
+        "price": false,
+        "room": false,
+        "cancellationTerms": false
+      },
+      "requiresAcceptance": false
+    },
+    "Room unavailable": {
+      "available": false
+    },
+    "Checking": {
+      "note": "Loading state while the reprice call is in flight"
+    }
+  },
+  "payment": {
+    "total": 895.05,
+    "totalInPoints": 89505,
+    "defaultTender": "Points + card",
+    "defaultPoints": 10000,
+    "pointsValue": 100.0,
+    "cardAmount": 795.05,
+    "pointsOnlyAvailable": false,
+    "pointsOnlyReason": "Points only needs 89,505 pts. You have 12,450 pts.",
+    "pointsStep": 100,
+    "cardEntry": "Simulated: saved card or a simulated 'Use another card' form. No live charge."
+  },
+  "booking": {
+    "aspireBookingId": "ASP-30418872",
+    "confirmationNumber": "8842-KJ71",
+    "status": "Confirmed",
+    "timestamp": "2026-11-21T10:42:00-06:00",
+    "tripId": "TRIP-7781",
+    "rewardsBalanceAfter": 2450,
+    "store": [
+      "aspireBookingId",
+      "confirmationNumber",
+      "status",
+      "rateId",
+      "cancellationTerms",
+      "amounts",
+      "payment (points, card amount, last4)",
+      "timestamp",
+      "tripId",
+      "customerId"
+    ]
+  },
+  "expectedItineraryView": {
+    "note": "Not stored. Built on each load from the bookings linked to tripId TRIP-7781 (seeded flights + the new hotel booking), sorted by date and time.",
+    "items": [
+      {
+        "date": "2026-12-30",
+        "type": "flight",
+        "title": "Flight SFO → IAH",
+        "detail": "Coast Air 1015 · 10:15 AM – 4:05 PM",
+        "confirmation": "QX7P2M"
+      },
+      {
+        "date": "2026-12-30",
+        "type": "hotelCheckIn",
+        "title": "Check in · Hotel Solenne",
+        "detail": "From 3:00 PM · Deluxe King · 2 guests",
+        "confirmation": "8842-KJ71",
+        "justAdded": true
+      },
+      {
+        "date": "2027-01-02",
+        "type": "hotelCheckOut",
+        "title": "Check out · Hotel Solenne",
+        "detail": "By 11:00 AM"
+      },
+      {
+        "date": "2027-01-02",
+        "type": "flight",
+        "title": "Flight IAH → SFO",
+        "detail": "Coast Air 1022 · 6:40 PM – 8:55 PM",
+        "confirmation": "QX7P2M"
+      }
+    ]
+  }
+}

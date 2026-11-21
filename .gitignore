@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Xcode: per-user state and build output
+xcuserdata/
+*.xcuserstate
+DerivedData/
+build/
+
+# Reference material, kept in the local working copy only: photos of the
+# requirement slides and screenshots of the real app, and the design handoff.
+# The app does not need them to build or run.
+TravelAndLifeStyle/Requirements/
+TravelAndLifeStyle/ExectionPlan/

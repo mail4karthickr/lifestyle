@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "photo_glass_towers.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

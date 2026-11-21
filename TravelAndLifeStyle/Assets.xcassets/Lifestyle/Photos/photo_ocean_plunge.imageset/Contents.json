@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "photo_ocean_plunge.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "photo_resort_domes.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

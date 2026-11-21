@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "photo_room_queens.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

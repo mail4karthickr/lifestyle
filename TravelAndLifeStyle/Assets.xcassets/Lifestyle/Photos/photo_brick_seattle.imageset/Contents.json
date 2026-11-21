@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "photo_brick_seattle.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
