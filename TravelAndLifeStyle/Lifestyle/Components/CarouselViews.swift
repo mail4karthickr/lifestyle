@@ -84,7 +84,7 @@ struct LandingCarousel: View {
             }
             .scrollTargetLayout()
             .padding(.top, 2)
-            .padding(.bottom, 8)
+            .padding(.bottom, 14)
         }
         .contentMargins(.leading, metrics.leadingBleed, for: .scrollContent)
         .contentMargins(.trailing, max(metrics.trailingBleed, 0), for: .scrollContent)
@@ -94,6 +94,8 @@ struct LandingCarousel: View {
         .clipped()
         .padding(.leading, -metrics.leadingBleed)
         .padding(.trailing, -metrics.trailingBleed)
+        // The room the cards' shadows take below them.
+        .padding(.bottom, -6)
     }
 }
 
@@ -174,7 +176,7 @@ struct DiningEventCard: View {
     }
 }
 
-/// Small frosted pill over an image: a date or a menu.
+/// Small glass pill over an image: a date or a menu.
 struct ImageTag: View {
     let symbol: String
     let text: String
@@ -189,7 +191,7 @@ struct ImageTag: View {
         .foregroundStyle(Theme.Colors.ink)
         .padding(.horizontal, 10)
         .frame(minHeight: Theme.Size.imageTag)
-        .background(Theme.Colors.imageTagFill, in: Capsule())
+        .glassTag()
     }
 }
 

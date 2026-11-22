@@ -188,6 +188,32 @@ struct TripBuilderTests {
         ])
     }
 
+    /// iPhone Duo in tabletop shows what's next on the upright half.
+    @Test func whatsNextIsTheFirstBookingOnOrAfterToday() throws {
+        let trip = HotelSampleData.sample.trip
+        let store = BookingStore(existingTrip: trip, customerId: "CUST-0042", seed: .hotelAndDinner)
+        store.todayOverride = seeds.today
+        let itinerary = store.itinerary(for: try #require(store.trips().first))
+
+        // Before the trip: its first booking.
+        #expect(itinerary.nextItem(from: TripCalendar.date("2026-11-22"))?.title == "Flight SFO → IAH")
+        // On a day with bookings: that day's first.
+        #expect(itinerary.nextItem(from: TripCalendar.date("2026-12-30"))?.title == "Flight SFO → IAH")
+        // Between bookings: the next day that has one.
+        #expect(itinerary.nextItem(from: TripCalendar.date("2026-12-31"))?.title == "Dinner · Osteria Lume")
+        #expect(itinerary.nextItem(from: TripCalendar.date("2027-01-02"))?.title == "Check out · Hotel Solenne")
+        // After the trip: its last booking.
+        #expect(itinerary.nextItem(from: TripCalendar.date("2027-01-05"))?.title == "Flight IAH → SFO")
+    }
+
+    @Test func theCountdownCountsDaysAndStopsOnceTheDayHasPassed() {
+        let day = TripCalendar.date("2026-12-30")
+        #expect(TripItinerary.countdown(from: TripCalendar.date("2026-11-22"), to: day) == "In 38 days")
+        #expect(TripItinerary.countdown(from: TripCalendar.date("2026-12-29"), to: day) == "Tomorrow")
+        #expect(TripItinerary.countdown(from: day, to: day) == "Today")
+        #expect(TripItinerary.countdown(from: TripCalendar.date("2026-12-31"), to: day) == nil)
+    }
+
     @Test func seededFlightsNeverMakeATrip() {
         let trip = HotelSampleData.sample.trip
         let store = BookingStore(existingTrip: trip, customerId: "CUST-0042", seed: .none)

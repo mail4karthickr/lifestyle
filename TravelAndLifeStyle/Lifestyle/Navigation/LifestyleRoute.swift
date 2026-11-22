@@ -14,6 +14,8 @@ enum LifestyleRoute: Hashable {
     case hotelSearch(destination: HotelFlowModel.Destination)
     case hotelResults
     case hotelDetails(hotelId: String)
+    /// The selected hotel's photos, full screen.
+    case hotelPhotos
     case hotelRooms
     case hotelCheckout
     case hotelReview

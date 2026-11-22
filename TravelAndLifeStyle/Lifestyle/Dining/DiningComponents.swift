@@ -344,7 +344,7 @@ private struct TimeSlotButton: View {
     }
 
     private var fill: Color {
-        isSelected ? Theme.Colors.purple2 : (slot.isSoldOut ? Theme.Colors.slotSoldOutFill : Theme.Colors.imageTagFill)
+        isSelected ? Theme.Colors.purple2 : (slot.isSoldOut ? Theme.Colors.slotSoldOutFill : Theme.Colors.slotFill)
     }
 
     private var border: Color {

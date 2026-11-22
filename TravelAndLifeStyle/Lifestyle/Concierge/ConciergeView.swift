@@ -241,6 +241,11 @@ private struct ConciergeCompactLayout: View {
                 VStack(spacing: 12) {
                     if model.stage == .start {
                         DisclosureCard(text: model.content.disclosure)
+                    } else if model.stage == .picks || model.stage == .inspired {
+                        // iPhone Duo, closed: the inner display shows the picks
+                        // beside the chat. Kept above the composer, where it
+                        // shows wherever the thread is scrolled to.
+                        OpenForMoreHint(text: "See your picks beside the chat.")
                     }
                     ComposerBar(text: $model.draft) {
                         withAnimation(Theme.Motion.select) { model.submitDraft() }

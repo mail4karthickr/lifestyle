@@ -12,6 +12,7 @@ import SwiftUI
 struct LifestyleRootView: View {
     @State private var store: LifestyleStore
     @State private var sceneInsets = EdgeInsets()
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     private let onClose: () -> Void
 
     init(store: LifestyleStore = LifestyleStore(), onClose: @escaping () -> Void = {}) {
@@ -34,6 +35,8 @@ struct LifestyleRootView: View {
                         HotelResultsView()
                     case .hotelDetails:
                         HotelDetailsView()
+                    case .hotelPhotos:
+                        HotelPhotosView()
                     case .hotelRooms:
                         HotelRoomsView()
                     case .hotelCheckout:
@@ -80,8 +83,13 @@ struct LifestyleRootView: View {
         .environment(store)
         .tint(Theme.Colors.ink)
         .preferredColorScheme(.light)
-        .onHingeChange { _, context in
-            store.hingeStatus = context.hinge?.status
+        // iPhone Duo: the pose decides a few things the size class can't.
+        .onHingeChange { old, new in
+            store.hingeChanged(from: old.hinge?.status, to: new.hinge?.status)
+        }
+        // Opening the device is also when the layout goes from one column to two.
+        .onChange(of: horizontalSizeClass) { old, new in
+            if old == .compact, new == .regular, store.hingeStatus != nil { store.deviceOpened() }
         }
         .task { await startUp() }
     }
@@ -91,6 +99,7 @@ private extension LifestyleRootView {
     /// The landing sections load on their own; a demo start doesn't wait for them.
     func startUp() async {
         let store = store
+        if let pose = DemoPose.launch { store.show(pose) }
         async let sections: Void = store.loadIfNeeded()
         if let start = DemoStart.launch, !store.hasStartedDemo {
             store.hasStartedDemo = true

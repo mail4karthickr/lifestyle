@@ -131,8 +131,11 @@ private struct LandingBrowseSections: View {
                 .riseIn(order: 1)
         }
 
-        ConciergeSearchBox { store.open(.concierge) }
-            .riseIn(order: 2)
+        // The way into Fargo Concierge, with the chat's own ideas as examples.
+        ConciergeSearchBox(examples: store.content.concierge.inspireMe.map(\.prompt)) {
+            store.open(.concierge)
+        }
+        .riseIn(order: 2)
 
         CategoryTabBar(tabs: store.content.tabs, selection: $store.selectedTabID)
             .padding(.top, metrics.tabsTopGap)

@@ -32,6 +32,8 @@ struct HotelResultsView: View {
                 }
             } else {
                 FlowPage(spacing: 10) {
+                    // iPhone Duo, closed: the inner display shows a hotel beside the list.
+                    OpenForMoreHint(text: "See each hotel beside the list.")
                     HotelResultsList(model: model, selectedId: nil, filterFocus: $filterFocus) { hotel in
                         model.selectHotel(hotel.id)
                         store.advance(to: .hotelDetails(hotelId: hotel.id))

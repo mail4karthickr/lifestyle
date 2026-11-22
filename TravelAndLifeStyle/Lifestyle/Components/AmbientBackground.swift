@@ -2,8 +2,9 @@
 //  AmbientBackground.swift
 //  Lifestyle · page background
 //
-//  #F4F0ED with the app's faint diagonal facets and very soft yellow, red and
-//  purple glows that drift slowly.
+//  #F4F0ED with the app's faint diagonal facets and soft yellow, red, purple
+//  and magenta glows that drift slowly. The glows are what the glass cards
+//  blur and tint.
 //
 
 import SwiftUI
@@ -44,6 +45,8 @@ struct AmbientBackground: View {
                     .position(x: 40, y: 0.34 * h + 210)
                 glow(Theme.Colors.glowPurple, diameter: 520, period: Theme.Motion.driftPeriods[2])
                     .position(x: w - 110, y: h - 80)
+                glow(Theme.Colors.glowMagenta, diameter: 400, period: Theme.Motion.driftPeriods[3])
+                    .position(x: 0.28 * w, y: 0.70 * h)
             }
             .frame(width: w, height: h)
             .clipped()

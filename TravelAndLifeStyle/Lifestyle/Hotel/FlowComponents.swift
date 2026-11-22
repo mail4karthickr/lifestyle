@@ -328,7 +328,14 @@ struct TagPill: View {
         .foregroundStyle(foreground)
         .padding(.horizontal, 10)
         .frame(minHeight: Theme.Size.imageTag)
-        .background(fill, in: Capsule())
+        .background {
+            if tone == .image {
+                // Over a photo: glass, so the tag reads on any image.
+                Color.clear.glassTag()
+            } else {
+                Capsule().fill(fill)
+            }
+        }
     }
 
     private var foreground: Color {
@@ -343,7 +350,7 @@ struct TagPill: View {
         switch tone {
         case .purple: Theme.Colors.tintPurple
         case .mint: Theme.Colors.mint
-        case .image: Theme.Colors.imageTagFill
+        case .image: .clear
         }
     }
 }

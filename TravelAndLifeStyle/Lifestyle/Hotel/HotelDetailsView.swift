@@ -42,7 +42,8 @@ private struct HotelDetailsCompact: View {
             ScrollView {
                 VStack(spacing: 0) {
                     HotelGallery(imageNames: model.galleryImages, photoCount: model.details.value?.photos ?? 1,
-                                 height: container.height < 760 ? 220 : 300, tagLeading: leading)
+                                 height: container.height < 760 ? 220 : 300, tagLeading: leading,
+                                 onOpen: { store.openPhotos(at: $0) })
                         .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: 28, bottomTrailingRadius: 28,
                                                           style: .continuous))
 
@@ -91,8 +92,9 @@ private struct HotelChooseRoomBar: View {
     }
 }
 
-private struct HotelFromPrice: View {
+struct HotelFromPrice: View {
     let hotel: HotelSummary?
+    var showsPoints = true
 
     var body: some View {
         if let hotel {
@@ -102,9 +104,11 @@ private struct HotelFromPrice: View {
                 Text("a night")
                     .textStyle(.footnote, color: Theme.Colors.muted)
             }
-            Text("or \(hotel.pointsPerNight.pointsText) · taxes extra")
-                .textStyle(.footnote, color: Theme.Colors.muted)
-                .lineLimit(1)
+            if showsPoints {
+                Text("or \(hotel.pointsPerNight.pointsText) · taxes extra")
+                    .textStyle(.footnote, color: Theme.Colors.muted)
+                    .lineLimit(1)
+            }
         } else {
             ShimmerBlock().frame(width: 120, height: 16)
         }
@@ -121,7 +125,7 @@ struct HotelDetailsPane: View {
         FlowPane {
             if model.selectedHotel != nil {
                 HotelGallery(imageNames: model.galleryImages, photoCount: model.details.value?.photos ?? 1,
-                             height: 150, tagLeading: 12)
+                             height: 150, tagLeading: 12, onOpen: { store.openPhotos(at: $0) })
                     .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
                     .id(model.selectedHotelId)
                 HotelDetailsContent(model: model, isPane: true)
@@ -302,12 +306,14 @@ private extension HotelDetails.Nearby {
 
 // MARK: - Gallery
 
-/// Paging photos with an "n / 8 photos" tag and page dots.
+/// Paging photos with an "n / 8 photos" tag and page dots. Tapping a photo
+/// opens the photos full screen, at that photo.
 struct HotelGallery: View {
     let imageNames: [String]
     let photoCount: Int
     var height: CGFloat
     var tagLeading: CGFloat
+    var onOpen: ((Int) -> Void)?
     @State private var page: Int? = 0
 
     private var count: Int { max(photoCount, 1) }
@@ -328,6 +334,8 @@ struct HotelGallery: View {
                             }
                         }
                         .clipped()
+                        .contentShape(Rectangle())
+                        .onTapGesture { onOpen?(index) }
                         .id(index)
                 }
             }
@@ -343,20 +351,8 @@ struct HotelGallery: View {
                 .padding(.bottom, 14)
         }
         .overlay(alignment: .bottom) {
-            if count > 1 {
-                let dots = min(count, 5)
-                let active = count > 1 ? Int((Double(current) / Double(count - 1) * Double(dots - 1)).rounded()) : 0
-                HStack(spacing: 4) {
-                    ForEach(0..<dots, id: \.self) { dot in
-                        Capsule()
-                            .fill(dot == active ? Theme.Colors.white : Theme.Colors.pageDotIdle)
-                            .frame(width: dot == active ? 16 : 6, height: 6)
-                    }
-                }
-                .animation(Theme.Motion.select, value: active)
+            PhotoDots(page: current, count: count)
                 .padding(.bottom, 22)
-                .accessibilityHidden(true)
-            }
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Photo \(current + 1) of \(count)")
@@ -364,6 +360,15 @@ struct HotelGallery: View {
             let next = current + (direction == .increment ? 1 : -1)
             page = min(max(next, 0), count - 1)
         }
+        .accessibilityAction(named: "View full screen") { onOpen?(current) }
+    }
+}
+
+extension LifestyleStore {
+    /// Opens the selected hotel's photos full screen, at the photo that was showing.
+    func openPhotos(at page: Int) {
+        photoPage = page
+        advance(to: .hotelPhotos)
     }
 }
 

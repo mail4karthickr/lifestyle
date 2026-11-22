@@ -1,6 +1,6 @@
 //
 //  LandingComponents.swift
-//  Lifestyle · profile banner, Concierge search box, tabs, Book now
+//  Lifestyle · profile banner, tabs, Book now
 //
 
 import SwiftUI
@@ -29,39 +29,6 @@ struct ProfileBanner: View {
         .padding(.leading, 16)
         .padding(.trailing, 10)
         .cardSurface()
-    }
-}
-
-// MARK: - Search box
-
-/// "What do you want to do?" — opens the Concierge.
-struct ConciergeSearchBox: View {
-    var action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 12) {
-                // The Fargo icon, with its colors drifting slowly.
-                FargoIcon(size: 38, isAnimated: true)
-                    .shadow(color: Theme.Colors.fargoShadow, radius: 6, x: 0, y: 3)
-                    .frame(width: Theme.Size.touch, height: Theme.Size.touch)
-
-                Text("What do you want to do?")
-                    .textStyle(.body, color: Theme.Colors.muted)
-                    .lineLimit(1)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                SymbolIcon(name: "mic", size: 18)
-                    .foregroundStyle(Theme.Colors.ink2)
-                    .frame(width: Theme.Size.touch, height: Theme.Size.touch)
-            }
-            .padding(.horizontal, 6)
-            .frame(minHeight: Theme.Size.searchBox)
-            .contentShape(Capsule())
-        }
-        .buttonStyle(PressableStyle())
-        .floatingGlass(interactive: true)
-        .accessibilityLabel("Ask Fargo Concierge: what do you want to do?")
     }
 }
 
@@ -203,7 +170,6 @@ struct NoteIcon<Icon: View>: View {
     return ScrollView {
         VStack(spacing: 12) {
             ProfileBanner {}
-            ConciergeSearchBox {}
             CategoryTabBar(tabs: content.tabs, selection: $tab)
             BookNowSection(tiles: content.bookNowTiles, tileHeight: 92) { _ in }
         }

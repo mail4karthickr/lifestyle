@@ -41,11 +41,21 @@ final class LifestyleStore {
     var carouselPosition: [String: String] = [:]
     /// Vertical scroll offset of the single-column page.
     var pageOffset: CGFloat = 0
-    /// Hinge state, when the device has one.
-    var hingeStatus: DeviceHinge.Status?
+    /// Hinge state, when the device has one (iPhone Duo).
+    private(set) var hingeStatus: DeviceHinge.Status?
+    /// Debug: a pose to show in place of the device's (`-lifestylePose`).
+    var poseOverride: DeviceHinge.Status?
+    /// "Open for side by side" on the cover display: done once the device has
+    /// been opened, or the hint closed. Starts again with the app.
+    var openHintIsDone = false
     /// The booking showing beside an itinerary on regular width, by the
     /// itinerary's booking ID.
     var selectedBooking: [String: ItineraryItem.Ref] = [:]
+    /// The photo showing in a hotel's gallery and in its full-screen photos.
+    var photoPage = 0
+    /// Tabletop: the item showing large on the upright half, when the customer
+    /// has picked one, by the itinerary's booking ID.
+    var glanceItem: [String: String] = [:]
     /// "Travel profile saved", floating over the landing page.
     private(set) var showsProfileToast = false
     private var profileToastShown = false
@@ -137,7 +147,23 @@ final class LifestyleStore {
         dining.held = bookings.reservations
     }
 
-    var isPartiallyFolded: Bool { hingeStatus == .partiallyOpen }
+    /// The device's pose: the debug override, or what the hinge reports.
+    var pose: DeviceHinge.Status? { poseOverride ?? hingeStatus }
+    /// Half folded: book pose side by side, tabletop when the panes are stacked.
+    var isPartiallyFolded: Bool { pose == .partiallyOpen }
+    /// iPhone Duo, closed: Lifestyle is on the cover display.
+    var isOnCoverDisplay: Bool { pose == .closed }
+
+    /// The hinge moved.
+    func hingeChanged(from old: DeviceHinge.Status?, to new: DeviceHinge.Status?) {
+        hingeStatus = new
+        if old == .closed, let new, new != .closed { deviceOpened() }
+    }
+
+    /// The device was opened, so the cover display's hint has done its job.
+    func deviceOpened() {
+        openHintIsDone = true
+    }
 
     // MARK: Loading
 

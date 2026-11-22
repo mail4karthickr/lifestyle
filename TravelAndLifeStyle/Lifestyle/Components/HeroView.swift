@@ -30,7 +30,7 @@ struct PointsPill: View {
         .padding(.leading, 8)
         .padding(.trailing, 14)
         .frame(minHeight: Theme.Size.pill)
-        .floatingGlass()
+        .floatingGlass(tint: Theme.Colors.glassFillLight)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityText)
     }
@@ -121,7 +121,7 @@ struct HeroView: View {
     }
 }
 
-/// Frost panel: card art, value prop, then the points balance and its travel value.
+/// Glass panel over the image: card art, value prop, then the points balance and its travel value.
 struct HeroValuePanel: View {
     let customer: Customer
     let rewards: LoadState<Rewards>
@@ -155,7 +155,8 @@ struct HeroValuePanel: View {
         .padding(.horizontal, 14)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background { SheenSweep() }
-        .frostSurface()
+        // The beach is bright, so more of it shows through than on other panels.
+        .frostSurface(tint: Theme.Colors.frostFillLight)
     }
 
     @ViewBuilder

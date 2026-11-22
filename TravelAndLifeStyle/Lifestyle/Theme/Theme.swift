@@ -39,22 +39,31 @@ enum Theme {
         static let facetLight = white.opacity(0.85)
         static let facetShade = Color(hex: 0xE3DBD4).opacity(0.80)
         static let glowYellow = yellow.opacity(0.50)
-        static let glowRed = red.opacity(0.17)
-        static let glowPurple = purple2.opacity(0.26)
+        static let glowRed = red.opacity(0.20)
+        static let glowPurple = purple2.opacity(0.34)
+        static let glowMagenta = Color(hex: 0x962B7E).opacity(0.20)
 
-        // Surfaces
-        static let cardFill = white.opacity(0.80)
+        // Surfaces. Cards, panels and tags are glass: a blur of what is behind
+        // them, a white tint, and an edge that catches the light.
+        static let cardFill = white.opacity(0.56)
         static let cardBorder = white.opacity(0.95)
-        static let cardShadow = ink2.opacity(0.08)
-        static let glassFill = white.opacity(0.72)
-        static let glassBorder = white.opacity(0.92)
+        static let cardShadow = ink2.opacity(0.10)
+        /// Edge of a glass surface, from the lit top leading corner round to the far one.
+        static let glassEdge: [Color] = [white, white.opacity(0.35), white.opacity(0.80)]
+        /// Light falling across the top of a glass surface.
+        static let glassSheen: [Color] = [white.opacity(0.42), white.opacity(0)]
+        static let glassFill = white.opacity(0.66)
+        /// Over a bright image, where more of it can show through.
+        static let glassFillLight = white.opacity(0.42)
         static let glassShadow = ink2.opacity(0.18)
-        static let frostFill = white.opacity(0.74)
-        static let frostBorder = white.opacity(0.90)
+        static let frostFill = white.opacity(0.62)
+        static let frostFillLight = white.opacity(0.46)
+        /// Read from a distance (tabletop): closer to solid.
+        static let frostFillStrong = white.opacity(0.78)
         static let frostShadow = ink.opacity(0.18)
         static let panelFill = white.opacity(0.70)
         static let panelShadow = ink2.opacity(0.10)
-        static let imageTagFill = white.opacity(0.86)
+        static let imageTagFill = white.opacity(0.52)
         static let sheen = white.opacity(0.75)
 
         // Controls
@@ -73,6 +82,8 @@ enum Theme {
         static let fargoMagenta = Color(hex: 0x962B7E)  // bottom leading
         static let fargoViolet = Color(hex: 0x7F3787)   // between the two
         static let fargoShadow = fargoPurple.opacity(0.28)
+        /// The light around the Fargo Concierge box: purple into magenta, with one warm glint.
+        static let aura: [Color] = [purple2, magenta, yellow, magenta, purple2, fargoPurple, purple2]
 
         // Tints behind icons
         static let tintRed = red.opacity(0.10)
@@ -116,6 +127,7 @@ enum Theme {
 
         // Day 3 · reserve a table
         static let slotSelectedShadow = purple2.opacity(0.30)
+        static let slotFill = white.opacity(0.86)
         static let slotSoldOutFill = ink2.opacity(0.06)
         static let slotSoldOutText = ink2.opacity(0.45)
         static let lowStock = Color(hex: 0x8A5A00)     // "2 tables left"
@@ -176,6 +188,7 @@ enum Theme {
         static let barButton: CGFloat = 44
         static let barMargin: CGFloat = 16
         static let searchBox: CGFloat = 56
+        static let conciergeBox: CGFloat = 54
         static let primaryButton: CGFloat = 48
         static let logoTile: CGFloat = 30
         static let coinLarge: CGFloat = 28
@@ -204,8 +217,24 @@ enum Theme {
         static let pressScale: CGFloat = 0.97
         static let sheenPeriod: Double = 6
         static let shimmerPeriod: Double = 1.5
-        static let driftPeriods: [Double] = [14, 18, 23]
+        static let driftPeriods: [Double] = [14, 18, 23, 27]
+        /// Fargo Concierge box: degrees per second its ring turns, and where it starts.
+        static let auraSpeed: Double = 40
+        static let auraStart: Double = 205
+        /// How long the question and each example request stay, and how one gives way to the next.
+        static let questionPeriod: Double = 4.2
+        static let examplePeriod: Double = 2.6
+        static let example = Animation.smooth(duration: 0.6)
     }
+}
+
+// MARK: - Gradients
+
+extension Theme {
+    /// The edge of a glass surface: bright where the light lands, fainter across from it.
+    static let glassEdge = LinearGradient(colors: Colors.glassEdge, startPoint: .topLeading, endPoint: .bottomTrailing)
+    /// Light across the top of a glass surface, gone by its middle.
+    static let glassSheen = LinearGradient(colors: Colors.glassSheen, startPoint: .top, endPoint: .center)
 }
 
 // MARK: - Typography
@@ -272,6 +301,8 @@ extension Theme {
         static let capsTight = TextStyle(size: 12, lineHeight: 16, semibold: true, relativeTo: .caption, tracking: 0.72)
         static let statusLabel = TextStyle(size: 12, lineHeight: 16, semibold: true, relativeTo: .caption)
         static let title2 = TextStyle(size: 22, lineHeight: 28, semibold: true, relativeTo: .title2)
+        /// Tabletop: the time of what's next, read from across a table.
+        static let display = TextStyle(size: 52, lineHeight: 56, semibold: true, relativeTo: .largeTitle)
         /// Confirmation number, tracking 0.02em.
         static let code = TextStyle(size: 19, lineHeight: 24, semibold: true, relativeTo: .title3, tracking: 0.38)
         /// Trip title beside a confirmation.
@@ -300,22 +331,31 @@ extension View {
 
 extension View {
 
-    /// Frosted card: white 80%, hairline white border, soft shadow.
+    /// Glass card: blurred backdrop, white tint, lit edge, soft shadow.
     func cardSurface(radius: CGFloat = Theme.Radius.card) -> some View {
         cardSurface(in: RoundedRectangle(cornerRadius: radius, style: .continuous))
     }
 
-    /// Frosted card in any shape (chat bubbles have one tighter corner).
+    /// Glass card in any shape (chat bubbles have one tighter corner).
     func cardSurface(in shape: some InsettableShape) -> some View {
         self
             .background {
                 shape
-                    .fill(Theme.Colors.cardFill)
-                    .shadow(color: Theme.Colors.cardShadow, radius: 7, x: 0, y: 4)
+                    .fill(.ultraThinMaterial)
+                    .overlay { shape.fill(Theme.Colors.cardFill) }
+                    .overlay { shape.fill(Theme.glassSheen) }
             }
-            .overlay { shape.strokeBorder(Theme.Colors.cardBorder, lineWidth: Theme.Size.border) }
             .clipShape(shape)
+            .overlay { shape.strokeBorder(Theme.glassEdge, lineWidth: Theme.Size.border) }
             .contentShape(shape)
+            // Outside the clip, so the card lifts off the page.
+            .background {
+                shape
+                    .fill(Theme.Colors.cardShadow)
+                    .blur(radius: 9)
+                    .offset(y: 6)
+                    .padding(.horizontal, 6)
+            }
     }
 
     /// Softer panel used for the trip brief on the open display.
@@ -324,30 +364,44 @@ extension View {
         return self
             .background {
                 shape
-                    .fill(Theme.Colors.panelFill)
+                    .fill(.ultraThinMaterial)
+                    .overlay { shape.fill(Theme.Colors.panelFill) }
                     .shadow(color: Theme.Colors.panelShadow, radius: 15, x: 0, y: 10)
             }
-            .overlay { shape.strokeBorder(Theme.Colors.glassBorder, lineWidth: Theme.Size.border) }
+            .overlay { shape.strokeBorder(Theme.glassEdge, lineWidth: Theme.Size.border) }
     }
 
     /// Floating control (header pills, search, composer): Liquid Glass.
-    func floatingGlass(in shape: some Shape = Capsule(), interactive: Bool = false) -> some View {
+    func floatingGlass(in shape: some Shape = Capsule(), tint: Color = Theme.Colors.glassFill,
+                       interactive: Bool = false) -> some View {
         self
-            .glassEffect(.regular.tint(Theme.Colors.glassFill).interactive(interactive), in: shape)
+            .glassEffect(.regular.tint(tint).interactive(interactive), in: shape)
     }
 
     /// Frost panel over imagery (hero value panel).
-    func frostSurface(radius: CGFloat = Theme.Radius.card) -> some View {
+    func frostSurface(radius: CGFloat = Theme.Radius.card, tint: Color = Theme.Colors.frostFill) -> some View {
         let shape = RoundedRectangle(cornerRadius: radius, style: .continuous)
         return self
             .background {
                 shape
                     .fill(.ultraThinMaterial)
-                    .overlay { shape.fill(Theme.Colors.frostFill) }
+                    .overlay { shape.fill(tint) }
+                    .overlay { shape.fill(Theme.glassSheen) }
                     .shadow(color: Theme.Colors.frostShadow, radius: 12, x: 0, y: 8)
             }
-            .overlay { shape.strokeBorder(Theme.Colors.frostBorder, lineWidth: Theme.Size.border) }
+            .overlay { shape.strokeBorder(Theme.glassEdge, lineWidth: Theme.Size.border) }
             .clipShape(shape)
+    }
+
+    /// A small glass tag over an image: a date, a menu, a price.
+    func glassTag(in shape: some InsettableShape = Capsule()) -> some View {
+        self
+            .background {
+                shape
+                    .fill(.ultraThinMaterial)
+                    .overlay { shape.fill(Theme.Colors.imageTagFill) }
+            }
+            .overlay { shape.strokeBorder(Theme.glassEdge, lineWidth: Theme.Size.border) }
     }
 }
 

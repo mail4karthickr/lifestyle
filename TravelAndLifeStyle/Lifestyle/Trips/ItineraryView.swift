@@ -261,6 +261,9 @@ struct ItineraryDayList: View {
     let itinerary: TripItinerary
     /// The booking showing in the details pane, if there is one.
     var selection: ItineraryItem.Ref?
+    /// Tabletop: the one item showing on the upright half. A stay has two items
+    /// (check-in and check-out) for one booking, so this names the item.
+    var selectedItemId: String?
     var onSelect: (ItineraryItem) -> Void
 
     var body: some View {
@@ -277,7 +280,7 @@ struct ItineraryDayList: View {
                 .accessibilityAddTraits(.isHeader)
 
                 ForEach(day.items) { item in
-                    ItinerarySegmentRow(item: item, isSelected: selection == item.ref) { onSelect(item) }
+                    ItinerarySegmentRow(item: item, isSelected: isSelected(item)) { onSelect(item) }
                 }
             }
             // The rail runs behind the icons, from the first to the last.
@@ -292,6 +295,13 @@ struct ItineraryDayList: View {
             }
             .riseIn(order: index)
         }
+    }
+}
+
+extension ItineraryDayList {
+    private func isSelected(_ item: ItineraryItem) -> Bool {
+        if let selectedItemId { return item.id == selectedItemId }
+        return selection == item.ref
     }
 }
 
@@ -350,6 +360,8 @@ struct ItineraryView: View {
 }
 
 /// Regular width: the day list leads; the selected booking's details trail.
+/// On iPhone Duo in tabletop the halves change jobs: one booking shows large on
+/// the upright half, and the days are on the flat half.
 struct ItinerarySplit: View {
     @Environment(LifestyleStore.self) private var store
     let itinerary: TripItinerary
@@ -357,34 +369,79 @@ struct ItinerarySplit: View {
     let selection: ItineraryItem.Ref?
 
     var body: some View {
+        // What the upright half shows: the customer's pick, or what's next.
+        let next = itinerary.nextItem(from: store.bookings.today)
+        let shown = itinerary.items.first { $0.id == store.glanceItem[bookingId] } ?? next
+
         FlowSplit {
-            FlowPane(spacing: 12) {
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(spacing: 12) {
-                        Thumbnail(name: itinerary.trip.imageName, size: 56, radius: Theme.Radius.thumbnailLarge)
-                        VStack(alignment: .leading, spacing: 0) {
-                            Text(itinerary.trip.title)
-                                .textStyle(.cardTitle)
-                                .accessibilityAddTraits(.isHeader)
-                            Text(itinerary.datesLine)
-                                .textStyle(.footnote, color: Theme.Colors.muted)
-                        }
-                        .lineLimit(1)
-                    }
-                    TripIndicators(trip: itinerary.trip)
+            TabletopSwitch {
+                if let shown {
+                    TripGlancePane(itinerary: itinerary, item: shown, isNext: shown.id == next?.id,
+                                   today: store.bookings.today)
                 }
-                ItineraryDayList(itinerary: itinerary, selection: selection) { item in
-                    withAnimation(Theme.Motion.select) { store.selectedBooking[bookingId] = item.ref }
-                }
+            } otherwise: {
+                days
             }
         } trailing: {
-            FlowPane {
-                if let selection {
-                    BookingDetailsContent(ref: selection, isPane: true)
-                        .id(selection)
+            TabletopSwitch {
+                TripTabletopDays(itinerary: itinerary, shownItemId: shown?.id ?? "") { item in
+                    withAnimation(Theme.Motion.select) {
+                        store.glanceItem[bookingId] = item.id
+                        store.selectedBooking[bookingId] = item.ref
+                    }
                 }
-                InfoNote(text: ItineraryText.displayOnly)
+            } otherwise: {
+                details
             }
+        }
+    }
+
+    private var days: some View {
+        FlowPane(spacing: 12) {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 12) {
+                    Thumbnail(name: itinerary.trip.imageName, size: 56, radius: Theme.Radius.thumbnailLarge)
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(itinerary.trip.title)
+                            .textStyle(.cardTitle)
+                            .accessibilityAddTraits(.isHeader)
+                        Text(itinerary.datesLine)
+                            .textStyle(.footnote, color: Theme.Colors.muted)
+                    }
+                    .lineLimit(1)
+                }
+                TripIndicators(trip: itinerary.trip)
+            }
+            ItineraryDayList(itinerary: itinerary, selection: selection) { item in
+                withAnimation(Theme.Motion.select) { store.selectedBooking[bookingId] = item.ref }
+            }
+        }
+    }
+
+    private var details: some View {
+        FlowPane {
+            if let selection {
+                BookingDetailsContent(ref: selection, isPane: true)
+                    .id(selection)
+            }
+            InfoNote(text: ItineraryText.displayOnly)
+        }
+    }
+}
+
+/// Chooses a pane's content by pose. Tabletop is iPhone Duo half folded with
+/// the panes stacked: one half is upright, the other flat.
+private struct TabletopSwitch<Tabletop: View, Otherwise: View>: View {
+    @Environment(LifestyleStore.self) private var store
+    @Environment(\.splitArrangementAxis) private var axis
+    @ViewBuilder var tabletop: Tabletop
+    @ViewBuilder var otherwise: Otherwise
+
+    var body: some View {
+        if axis == .vertical && store.isPartiallyFolded {
+            tabletop
+        } else {
+            otherwise
         }
     }
 }
@@ -411,6 +468,8 @@ private struct ItineraryCompact: View {
                                   leading: leading, trailing: trailing)
 
                     VStack(alignment: .leading, spacing: 14) {
+                        // iPhone Duo, closed: the inner display shows a booking beside the days.
+                        OpenForMoreHint(text: "See each booking beside your trip.")
                         TripIndicators(trip: itinerary.trip)
                         ItinerarySummaryTags(tags: itinerary.tags)
                         ItineraryDayList(itinerary: itinerary) { item in

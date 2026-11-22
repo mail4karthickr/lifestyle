@@ -12,6 +12,8 @@ import Foundation
 enum DemoStart: String, CaseIterable {
     // Day 2 · book a hotel
     case hotelSearch, hotelResults, hotelDetails, hotelRooms
+    /// The hotel's photos, full screen.
+    case hotelPhotos
     /// Checkout, as it opens: the reprice result is showing and nothing is accepted.
     case hotelCheckout
     /// Checkout with the price change accepted.
@@ -77,7 +79,7 @@ extension LifestyleStore {
     /// Walks a flow up to `step`, making the same calls the screens make.
     func start(at step: DemoStart) async {
         switch step {
-        case .hotelSearch, .hotelResults, .hotelDetails, .hotelRooms, .hotelCheckout, .hotelCheckoutAccepted,
+        case .hotelSearch, .hotelResults, .hotelDetails, .hotelPhotos, .hotelRooms, .hotelCheckout, .hotelCheckoutAccepted,
              .hotelReview, .hotelBooking, .hotelConfirmed, .itinerary, .homeAfterBooking:
             await startHotel(at: step)
         case .restaurant, .diningTable, .diningTableParty6, .diningDetails, .diningDetailsErrors, .diningDeposit,
@@ -110,6 +112,10 @@ extension LifestyleStore {
         await hotel.loadRooms()
         path.append(.hotelDetails(hotelId: hotelId))
         if step == .hotelDetails { return }
+        if step == .hotelPhotos {
+            path.append(.hotelPhotos)
+            return
+        }
 
         path.append(.hotelRooms)
         if step == .hotelRooms { return }
