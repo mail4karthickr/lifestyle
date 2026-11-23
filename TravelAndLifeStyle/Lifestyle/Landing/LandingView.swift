@@ -34,8 +34,9 @@ struct LandingView: View {
         }
         .background { AmbientBackground() }
         // The title names the page for VoiceOver and for the Back button of the
-        // pages it opens; it isn't shown.
-        .navigationTitle("Lifestyle")
+        // pages it opens. The bar doesn't show it; `LandingTitle` shows it in
+        // the content where the header's leading side is free.
+        .navigationTitle(LandingTitle.text)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(removing: .title)
         .toolbar {
@@ -62,6 +63,23 @@ struct LandingView: View {
         .onChange(of: store.profileToastIsDue, initial: true) { _, isDue in
             if isDue { store.showProfileToast() }
         }
+    }
+}
+
+// MARK: - Title
+
+/// The page's title, in the same style as every other page's. It leads the
+/// header wherever Close isn't there: on regular width, and on compact width
+/// when a side bar holds Close (iPhone Duo's cover display). On iPhone, Close
+/// is at the top left and the title isn't shown.
+struct LandingTitle: View {
+    static let text = "Lifestyle"
+
+    var body: some View {
+        Text(Self.text)
+            .textStyle(.title1)
+            .lineLimit(1)
+            .accessibilityAddTraits(.isHeader)
     }
 }
 
@@ -209,6 +227,17 @@ private struct LandingCompactLayout: View {
                         layout: .fullBleed(leading: leading, trailing: trailing),
                         height: metrics.heroHeight,
                         onRetry: { Task { await store.rewards.load() } })
+                        // With a side bar the header has no Close at its left,
+                        // so the title goes there: over the hero, level with
+                        // the points balance, and scrolling away with it.
+                        .overlay(alignment: .topLeading) {
+                            if toolbarVerticalEdge != nil {
+                                LandingTitle()
+                                    .frame(minHeight: Theme.Size.pill)
+                                    .padding(.leading, leading)
+                                    .padding(.top, insets.top > 0 ? insets.top : metrics.margin)
+                            }
+                        }
 
                     VStack(alignment: .leading, spacing: 12) {
                         LandingBrowseSections(metrics: metrics)
@@ -259,9 +288,13 @@ private struct LandingRegularLayout: View {
 
             ArrangementView {
                 LandingPane(insets: panes, position: .first) {
-                    // The header: the points balance, at the right of the pane.
-                    PointsPill(state: store.rewards.state)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    // The header: the page's title, and the points balance at
+                    // the right of the pane.
+                    HStack(spacing: 12) {
+                        LandingTitle()
+                        Spacer(minLength: 0)
+                        PointsPill(state: store.rewards.state)
+                    }
                     HeroView(
                         customer: store.content.customer,
                         rewards: store.rewards.state,

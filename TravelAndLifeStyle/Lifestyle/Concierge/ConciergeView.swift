@@ -46,7 +46,7 @@ struct ConciergeView: View {
 
 private extension View {
     /// The bar title in the brand font. With a side bar there is no horizontal
-    /// bar for a title to sit in, so it is left out.
+    /// bar for a title to sit in, so the content shows it (`ConciergePageTitle`).
     func conciergeTitle(isShown: Bool) -> some View {
         self
             .toolbar(removing: isShown ? nil : .title)
@@ -59,6 +59,20 @@ private extension View {
                     }
                 }
             }
+    }
+}
+
+/// The page's title in the content, in the same style as every other page's.
+/// It stays above the thread where no bar shows the title: a conversation
+/// starts with the customer's own line at the right, which left the top left
+/// of the page empty. The start screen has the greeting there instead.
+private struct ConciergePageTitle: View {
+    var body: some View {
+        Text("Fargo Concierge")
+            .textStyle(.title1)
+            .lineLimit(1)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityAddTraits(.isHeader)
     }
 }
 
@@ -223,17 +237,25 @@ private struct ConciergeCompactLayout: View {
                     }
                     .scrollBounceBehavior(.basedOnSize)
                 } else {
-                    ScrollView {
-                        ConciergeThread(model: model, showsPickCards: true, bleed: (leading, trailing))
-                            .padding(.leading, leading)
-                            .padding(.trailing, trailing)
-                            .padding(.vertical, 12)
+                    VStack(spacing: 0) {
+                        if !hasTopBar {
+                            ConciergePageTitle()
+                                .padding(.leading, leading)
+                                .padding(.trailing, trailing)
+                                .padding(.top, max(margin - insets.top, 0))
+                        }
+                        ScrollView {
+                            ConciergeThread(model: model, showsPickCards: true, bleed: (leading, trailing))
+                                .padding(.leading, leading)
+                                .padding(.trailing, trailing)
+                                .padding(.vertical, 12)
+                        }
+                        // Picks read from the top; a conversation follows its latest line.
+                        .defaultScrollAnchor(model.stage == .inspired ? .top : .bottom)
+                        // A thread shorter than the screen starts under the bar, with
+                        // no gap above it.
+                        .defaultScrollAnchor(.top, for: .alignment)
                     }
-                    // Picks read from the top; a conversation follows its latest line.
-                    .defaultScrollAnchor(model.stage == .inspired ? .top : .bottom)
-                    // A thread shorter than the screen starts under the bar, with
-                    // no gap above it.
-                    .defaultScrollAnchor(.top, for: .alignment)
                 }
             }
             .scrollIndicators(.hidden)
@@ -337,6 +359,8 @@ private struct ConciergeRegularLayout: View {
 /// Chat and composer.
 private struct ConciergeChatPane: View {
     @Environment(\.splitArrangementAxis) private var axis
+    /// Non-nil where the system moves the toolbar to a side bar (iPhone Duo).
+    @Environment(\.toolbarVerticalEdge) private var toolbarVerticalEdge
     let model: ConciergeModel
 
     var body: some View {
@@ -362,6 +386,10 @@ private struct ConciergeChatPane: View {
 
                 DisclosureCard(text: model.content.disclosure)
             } else {
+                // A top bar shows the title; a side bar has no row for it.
+                if toolbarVerticalEdge != nil {
+                    ConciergePageTitle()
+                }
                 ScrollView {
                     ConciergeThread(model: model, showsPickCards: false,
                                     usesReadyLine: axis != .vertical,
