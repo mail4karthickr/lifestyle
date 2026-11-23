@@ -6,6 +6,10 @@
 //  safe area already provides (a side bar, a bar, the camera). The panes meet
 //  with a 16pt gap. Values come from the safe area at runtime, never from the device.
 //
+//  The padding doesn't depend on the hinge. iPhone Duo is half folded for a
+//  moment every time it is opened, so a margin that differed there made the
+//  leading pane's content jump wider as the device went flat.
+//
 
 import SwiftUI
 
@@ -19,8 +23,6 @@ struct SplitPaneInsets: Equatable {
 
     /// Safe-area insets around the arrangement.
     var safeArea: EdgeInsets
-    /// Partially folded: the leading margin mirrors the side bar's, so the panes match.
-    var mirrorsSideBar = false
 
     static let margin: CGFloat = 20
     static let halfGap: CGFloat = 8
@@ -28,15 +30,8 @@ struct SplitPaneInsets: Equatable {
     private func outer(_ inset: CGFloat) -> CGFloat { max(Self.margin - inset, 0) }
 
     func padding(for position: Position, axis: Axis?) -> EdgeInsets {
-        var leading = outer(safeArea.leading)
-        var trailing = outer(safeArea.trailing)
-        if mirrorsSideBar {
-            // Whichever edge has no side bar borrows the other's inset.
-            leading = max(leading, safeArea.trailing - safeArea.leading)
-            trailing = max(trailing, safeArea.leading - safeArea.trailing)
-        }
-        var insets = EdgeInsets(top: outer(safeArea.top), leading: leading,
-                                bottom: outer(safeArea.bottom), trailing: trailing)
+        var insets = EdgeInsets(top: outer(safeArea.top), leading: outer(safeArea.leading),
+                                bottom: outer(safeArea.bottom), trailing: outer(safeArea.trailing))
         switch (axis ?? .horizontal, position) {
         case (.horizontal, .first): insets.trailing = Self.halfGap
         case (.horizontal, .second): insets.leading = Self.halfGap

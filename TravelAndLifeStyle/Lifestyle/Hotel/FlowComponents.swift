@@ -56,14 +56,13 @@ extension FlowPage where Bar == EmptyView {
 /// Regular width: a split arrangement that pairs the decision with the next
 /// level of detail. The system keeps both panes out of the fold.
 struct FlowSplit<Leading: View, Trailing: View>: View {
-    @Environment(LifestyleStore.self) private var store
     var leadingRatio: CGFloat = 0.53
     @ViewBuilder var leading: Leading
     @ViewBuilder var trailing: Trailing
 
     var body: some View {
         GeometryReader { proxy in
-            let insets = SplitPaneInsets(safeArea: proxy.safeAreaInsets, mirrorsSideBar: store.isPartiallyFolded)
+            let insets = SplitPaneInsets(safeArea: proxy.safeAreaInsets)
 
             ArrangementView {
                 leading

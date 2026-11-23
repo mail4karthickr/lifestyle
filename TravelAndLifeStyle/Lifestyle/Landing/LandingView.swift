@@ -101,13 +101,15 @@ struct LandingMetrics {
             sectionTopGap: isShort ? 8 : 12)
     }
 
-    /// Split panes. When the device is partially folded the panes are narrower and equal.
-    static func regular(showsBanner: Bool, isFolded: Bool) -> LandingMetrics {
+    /// Split panes. The sizes are the same half folded and flat: the device is
+    /// half folded for a moment every time it opens, and sizes of its own there
+    /// made the hero and the cards jump as it went flat.
+    static func regular(showsBanner: Bool) -> LandingMetrics {
         LandingMetrics(
             margin: 20,
-            heroHeight: isFolded ? 170 : (showsBanner ? 190 : 230),
-            carousel: CarouselMetrics(travelCardWidth: isFolded ? 230 : 210, imageHeight: 100),
-            tileHeight: isFolded ? 84 : 88,
+            heroHeight: showsBanner ? 190 : 230,
+            carousel: CarouselMetrics(travelCardWidth: 210, imageHeight: 100),
+            tileHeight: 88,
             contentTop: 20,
             contentBottom: 20,
             tabsTopGap: 2,
@@ -250,10 +252,10 @@ private struct LandingRegularLayout: View {
     @Environment(LifestyleStore.self) private var store
 
     var body: some View {
-        let metrics = LandingMetrics.regular(showsBanner: store.showsProfileBanner, isFolded: store.isPartiallyFolded)
+        let metrics = LandingMetrics.regular(showsBanner: store.showsProfileBanner)
 
         GeometryReader { proxy in
-            let panes = SplitPaneInsets(safeArea: proxy.safeAreaInsets, mirrorsSideBar: store.isPartiallyFolded)
+            let panes = SplitPaneInsets(safeArea: proxy.safeAreaInsets)
 
             ArrangementView {
                 LandingPane(insets: panes, position: .first) {
